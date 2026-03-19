@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | PolitiViral",
   },
   description:
-    "PolitiViral is a premium political creator activation platform for campaigns, PACs, advocacy groups, and creators.",
+    "PolitiViral is the premium political creator activation platform for campaigns, PACs, advocacy groups, and modern political content makers.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
 };
 
@@ -22,9 +22,15 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body>
-        <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.08),transparent_30%),radial-gradient(circle_at_left,rgba(14,165,233,0.08),transparent_26%)]" />
-        <div className="pointer-events-none fixed inset-x-0 bottom-0 -z-10 h-72 bg-[radial-gradient(circle_at_bottom,rgba(191,219,254,0.55),transparent_58%)]" />
+      <body className="antialiased">
+        <div
+          aria-hidden
+          className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.16),transparent_48%)]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none fixed bottom-0 left-1/2 -z-10 h-[28rem] w-[72rem] -translate-x-1/2 bg-[radial-gradient(circle,rgba(191,219,254,0.42),transparent_60%)]"
+        />
         <SiteHeader />
         <main className="relative">{children}</main>
         <SiteFooter />

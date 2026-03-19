@@ -24,11 +24,11 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
       : context.organization?.name ?? context.profile.full_name ?? "Campaign team";
   const subtitle =
     role === "creator"
-      ? "Keep your creator profile sharp and ready for campaign briefs."
-      : "Keep your campaign setup, goals, and creator program basics aligned.";
+      ? "Keep your creator profile sharp and ready for campaign briefs, approvals, and future invites."
+      : "Keep your campaign setup, creator goals, and activation posture aligned in one polished workspace.";
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
       <DashboardShell role={role} subtitle={subtitle} title={title}>
         {children}
       </DashboardShell>

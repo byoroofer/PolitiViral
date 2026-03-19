@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { CampaignOnboardingForm } from "@/components/onboarding/campaign-onboarding-form";
-import { ButtonLink } from "@/components/ui/button";
-import { SurfaceCard } from "@/components/ui/surface-card";
+import { OnboardingSidePanel } from "@/components/onboarding/onboarding-side-panel";
 import { getSignedInDestination } from "@/lib/auth/navigation";
 import { requireUserContext } from "@/lib/data/user-context";
 
@@ -22,25 +21,24 @@ export default async function CampaignOnboardingPage() {
   }
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:px-8 lg:py-14">
+    <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 xl:grid-cols-[minmax(0,1fr)_360px] lg:px-8 lg:py-12">
       <CampaignOnboardingForm
         campaignProfile={context.campaignProfile}
         organization={context.organization}
       />
 
-      <SurfaceCard className="h-fit p-8 lg:sticky lg:top-24">
-        <div className="space-y-5">
-          <h2 className="text-2xl font-semibold text-slate-950">What this unlocks</h2>
-          <ul className="space-y-3 text-sm leading-7 text-slate-600">
-            <li>A campaign dashboard shell focused on creator activation rather than generic marketplace browsing.</li>
-            <li>Structured fields for organization, initiative, budget, and timeline.</li>
-            <li>A stronger foundation for future creator briefing, invite, and tracked-link workflows.</li>
-          </ul>
-          <ButtonLink href="/for-campaigns" variant="secondary">
-            Review campaign fit
-          </ButtonLink>
-        </div>
-      </SurfaceCard>
+      <OnboardingSidePanel
+        actionHref="/for-campaigns"
+        actionLabel="Review campaign fit"
+        badge="Campaign onboarding"
+        description="This gives your team a cleaner political creator operating story before deeper collaboration, invites, and tracked-link workflows come online."
+        points={[
+          "Campaign dashboard shell focused on creator activation instead of marketplace browsing.",
+          "Structured fields for organization, initiative, budget, and launch timing.",
+          "A stronger base for future creator briefing, invite, and tracked-link workflows.",
+        ]}
+        title="Set the creator program basics with enough polish to operate from."
+      />
     </div>
   );
 }

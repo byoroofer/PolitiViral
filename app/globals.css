@@ -2,7 +2,25 @@
 
 :root {
   color-scheme: light;
-  --app-copy: #0f172a;
+  --background-top: #f3f8ff;
+  --background-bottom: #ffffff;
+  --background-deep: #08142e;
+  --surface: rgba(255, 255, 255, 0.82);
+  --surface-strong: rgba(255, 255, 255, 0.94);
+  --surface-tint: rgba(239, 246, 255, 0.86);
+  --border-soft: rgba(148, 163, 184, 0.2);
+  --border-strong: rgba(191, 219, 254, 0.72);
+  --ink-950: #07111f;
+  --ink-800: #172554;
+  --ink-700: #334155;
+  --ink-500: #64748b;
+  --brand-700: #1d4ed8;
+  --brand-600: #2563eb;
+  --brand-500: #3b82f6;
+  --brand-300: #93c5fd;
+  --brand-100: #dbeafe;
+  --shadow-xl: 0 32px 90px rgba(8, 16, 40, 0.14);
+  --shadow-lg: 0 22px 54px rgba(8, 16, 40, 0.1);
 }
 
 * {
@@ -18,11 +36,27 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top, rgba(37, 99, 235, 0.14), transparent 34%),
-    radial-gradient(circle at 20% 18%, rgba(14, 165, 233, 0.11), transparent 24%),
-    linear-gradient(180deg, #f7fbff 0%, #eef4ff 44%, #ffffff 100%);
-  color: var(--app-copy);
-  font-family: "Avenir Next", "Segoe UI Variable", "Trebuchet MS", sans-serif;
+    radial-gradient(circle at top, rgba(37, 99, 235, 0.14), transparent 30%),
+    radial-gradient(circle at 8% 18%, rgba(56, 189, 248, 0.1), transparent 18%),
+    radial-gradient(circle at 88% 0%, rgba(96, 165, 250, 0.16), transparent 24%),
+    linear-gradient(180deg, var(--background-top) 0%, #eef5ff 34%, var(--background-bottom) 100%);
+  color: var(--ink-950);
+  font-family: "Avenir Next", "Segoe UI Variable", "Inter", "Trebuchet MS", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-position: center;
+  background-size: 96px 96px;
+  content: "";
+  mask-image: radial-gradient(circle at center, black 0%, rgba(0, 0, 0, 0.32) 55%, transparent 82%);
+  pointer-events: none;
 }
 
 a {
@@ -39,21 +73,167 @@ textarea {
 
 ::selection {
   background: rgba(37, 99, 235, 0.18);
-  color: #0f172a;
+  color: var(--ink-950);
 }
 
 .display-font {
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-  letter-spacing: -0.04em;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Georgia", serif;
+  letter-spacing: -0.045em;
+}
+
+.eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2rem;
+  border: 1px solid rgba(147, 197, 253, 0.72);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(239, 246, 255, 0.9));
+  padding: 0.45rem 0.85rem;
+  color: var(--brand-700);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.eyebrow-pill::before {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--brand-500), #0ea5e9);
+  box-shadow: 0 0 0 0.28rem rgba(59, 130, 246, 0.1);
+  content: "";
+}
+
+.section-shell {
+  position: relative;
+}
+
+.section-shell::before {
+  position: absolute;
+  inset: 0;
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.28));
+  content: "";
+  pointer-events: none;
+}
+
+.field-label {
+  display: inline-block;
+  color: var(--ink-700);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.field-help {
+  color: var(--ink-500);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.field-input,
+.field-textarea,
+.field-select {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 1.2rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.92)),
+    rgba(255, 255, 255, 0.96);
+  color: var(--ink-950);
+  outline: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    background-color 160ms ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 10px 24px rgba(15, 23, 42, 0.03);
+}
+
+.field-input,
+.field-select {
+  min-height: 3.35rem;
+  padding: 0.92rem 1rem;
+}
+
+.field-textarea {
+  min-height: 9.5rem;
+  padding: 1rem;
+  resize: vertical;
+}
+
+.field-input::placeholder,
+.field-textarea::placeholder {
+  color: rgba(100, 116, 139, 0.72);
+}
+
+.field-input:hover,
+.field-textarea:hover,
+.field-select:hover {
+  border-color: rgba(96, 165, 250, 0.5);
+}
+
+.field-input:focus,
+.field-textarea:focus,
+.field-select:focus {
+  border-color: rgba(59, 130, 246, 0.72);
+  box-shadow:
+    0 0 0 4px rgba(59, 130, 246, 0.12),
+    0 14px 28px rgba(37, 99, 235, 0.08);
+  transform: translateY(-1px);
 }
 
 .app-shell {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.84)),
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.1), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(243, 247, 255, 0.88)),
     rgba(255, 255, 255, 0.84);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid rgba(191, 219, 254, 0.68);
   box-shadow:
-    0 24px 80px rgba(15, 23, 42, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(18px);
+    0 32px 96px rgba(8, 16, 40, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(22px);
+}
+
+.soft-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.26), transparent);
+}
+
+.screen-fade {
+  position: relative;
+  overflow: hidden;
+}
+
+.screen-fade::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 4.5rem;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.95));
+  content: "";
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

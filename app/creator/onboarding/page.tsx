@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { CreatorOnboardingForm } from "@/components/onboarding/creator-onboarding-form";
-import { ButtonLink } from "@/components/ui/button";
-import { SurfaceCard } from "@/components/ui/surface-card";
+import { OnboardingSidePanel } from "@/components/onboarding/onboarding-side-panel";
 import { getSignedInDestination } from "@/lib/auth/navigation";
 import { requireUserContext } from "@/lib/data/user-context";
 
@@ -22,22 +21,21 @@ export default async function CreatorOnboardingPage() {
   }
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:px-8 lg:py-14">
+    <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 xl:grid-cols-[minmax(0,1fr)_360px] lg:px-8 lg:py-12">
       <CreatorOnboardingForm initialValues={context.creatorProfile} />
 
-      <SurfaceCard className="h-fit p-8 lg:sticky lg:top-24">
-        <div className="space-y-5">
-          <h2 className="text-2xl font-semibold text-slate-950">What this unlocks</h2>
-          <ul className="space-y-3 text-sm leading-7 text-slate-600">
-            <li>A creator dashboard shell shaped for campaign collaboration.</li>
-            <li>A cleaner surface for future political briefs and approvals.</li>
-            <li>A profile that reads like campaign-fit information, not generic creator marketplace copy.</li>
-          </ul>
-          <ButtonLink href="/for-creators" variant="secondary">
-            Review creator benefits
-          </ButtonLink>
-        </div>
-      </SurfaceCard>
+      <OnboardingSidePanel
+        actionHref="/for-creators"
+        actionLabel="Review creator benefits"
+        badge="Creator onboarding"
+        description="A polished creator profile helps campaigns understand your platform, audience, voice, and political fit without guesswork."
+        points={[
+          "Creator dashboard shell shaped for campaign collaboration.",
+          "A cleaner surface for future political briefs and approvals.",
+          "A profile that reads like campaign-fit information instead of generic creator marketplace copy.",
+        ]}
+        title="This is the profile campaigns will size up first."
+      />
     </div>
   );
 }

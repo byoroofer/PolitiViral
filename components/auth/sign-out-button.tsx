@@ -24,7 +24,13 @@ export function SignOutButton() {
   }
 
   return (
-    <Button disabled={isSubmitting} onClick={handleSignOut} type="button" variant="ghost">
+    <Button
+      className="w-full justify-center"
+      disabled={isSubmitting}
+      onClick={handleSignOut}
+      type="button"
+      variant="ghost"
+    >
       {isSubmitting ? "Signing out..." : "Sign out"}
     </Button>
   );

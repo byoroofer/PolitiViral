@@ -12,9 +12,6 @@ type CreatorOnboardingFormProps = {
   initialValues: CreatorProfileRow | null;
 };
 
-const inputClassName =
-  "w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-300";
-
 export function CreatorOnboardingForm({ initialValues }: CreatorOnboardingFormProps) {
   const [state, formAction, isPending] = useActionState(
     saveCreatorOnboardingAction,
@@ -22,114 +19,128 @@ export function CreatorOnboardingForm({ initialValues }: CreatorOnboardingFormPr
   );
 
   return (
-    <SurfaceCard className="p-8 sm:p-10">
+    <SurfaceCard className="p-8 sm:p-10" variant="default">
       <div className="space-y-8">
-        <div className="space-y-3">
-          <span className="inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-blue-700 uppercase">
-            Creator onboarding
-          </span>
-          <div className="space-y-2">
-            <h1 className="display-font text-4xl leading-none text-slate-950">Set up your creator profile</h1>
-            <p className="text-base leading-7 text-slate-600">
-              Keep this tight and clear so campaigns can understand your voice quickly.
+        <div className="space-y-4">
+          <span className="eyebrow-pill">Creator onboarding</span>
+          <div className="space-y-3">
+            <h1 className="display-font text-4xl leading-[0.98] text-slate-950 sm:text-5xl">
+              Set up your creator profile
+            </h1>
+            <p className="max-w-3xl text-base leading-8 text-slate-600">
+              Keep this sharp and specific so campaigns can quickly understand your platform, voice, and political content fit.
             </p>
           </div>
         </div>
 
-        <form action={formAction} className="grid gap-6">
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700" htmlFor="display-name">
-                Display name
-              </label>
-              <input
-                className={inputClassName}
-                defaultValue={initialValues?.display_name ?? ""}
-                id="display-name"
-                name="displayName"
-                placeholder="Jordan Fields"
-                required
-                type="text"
-              />
+        <form action={formAction} className="grid gap-8">
+          <div className="grid gap-6 rounded-[28px] border border-slate-200/75 bg-white/72 p-6">
+            <div className="space-y-1">
+              <h2 className="text-2xl font-semibold tracking-[-0.03em] text-slate-950">Core identity</h2>
+              <p className="field-help">The first details campaigns scan when deciding who fits the work.</p>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2">
+              <div className="space-y-2">
+                <label className="field-label" htmlFor="display-name">
+                  Display name
+                </label>
+                <input
+                  className="field-input"
+                  defaultValue={initialValues?.display_name ?? ""}
+                  id="display-name"
+                  name="displayName"
+                  placeholder="Jordan Fields"
+                  required
+                  type="text"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="field-label" htmlFor="primary-platform">
+                  Primary platform
+                </label>
+                <input
+                  className="field-input"
+                  defaultValue={initialValues?.primary_platform ?? ""}
+                  id="primary-platform"
+                  name="primaryPlatform"
+                  placeholder="TikTok, Instagram Reels, X video"
+                  required
+                  type="text"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="field-label" htmlFor="home-base">
+                  Home base
+                </label>
+                <input
+                  className="field-input"
+                  defaultValue={initialValues?.home_base ?? ""}
+                  id="home-base"
+                  name="homeBase"
+                  placeholder="Chicago, IL"
+                  required
+                  type="text"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="field-label" htmlFor="audience-size">
+                  Audience size
+                </label>
+                <input
+                  className="field-input"
+                  defaultValue={initialValues?.audience_size ?? ""}
+                  id="audience-size"
+                  name="audienceSize"
+                  placeholder="10k-50k"
+                  required
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-6 rounded-[28px] border border-slate-200/75 bg-white/72 p-6">
+            <div className="space-y-1">
+              <h2 className="text-2xl font-semibold tracking-[-0.03em] text-slate-950">Content fit</h2>
+              <p className="field-help">Describe the kind of political work you are strongest at.</p>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700" htmlFor="primary-platform">
-                Primary platform
-              </label>
-              <input
-                className={inputClassName}
-                defaultValue={initialValues?.primary_platform ?? ""}
-                id="primary-platform"
-                name="primaryPlatform"
-                placeholder="TikTok, Instagram Reels, YouTube Shorts"
-                required
-                type="text"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700" htmlFor="content-focus">
+              <label className="field-label" htmlFor="content-focus">
                 Content focus
               </label>
               <input
-                className={inputClassName}
+                className="field-input"
                 defaultValue={initialValues?.content_focus ?? ""}
                 id="content-focus"
                 name="contentFocus"
-                placeholder="Politics, culture, issue explainers"
+                placeholder="Politics, culture, issue explainers, reactions"
                 required
                 type="text"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700" htmlFor="audience-size">
-                Audience size
+              <label className="field-label" htmlFor="bio">
+                Short bio
               </label>
-              <input
-                className={inputClassName}
-                defaultValue={initialValues?.audience_size ?? ""}
-                id="audience-size"
-                name="audienceSize"
-                placeholder="10k-50k"
+              <textarea
+                className="field-textarea"
+                defaultValue={initialValues?.bio ?? ""}
+                id="bio"
+                name="bio"
+                placeholder="Give campaigns a concise sense of your voice, your audience, and the kind of political work you want to do."
                 required
-                type="text"
               />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700" htmlFor="home-base">
-              Home base
-            </label>
-            <input
-              className={inputClassName}
-              defaultValue={initialValues?.home_base ?? ""}
-              id="home-base"
-              name="homeBase"
-              placeholder="Chicago, IL"
-              required
-              type="text"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700" htmlFor="bio">
-              Short bio
-            </label>
-            <textarea
-              className="min-h-36 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-300"
-              defaultValue={initialValues?.bio ?? ""}
-              id="bio"
-              name="bio"
-              placeholder="Give campaigns a concise sense of your voice, your audience, and the kind of political work you want to do."
-              required
-            />
-          </div>
-
           {state.error ? (
-            <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+            <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm leading-6 text-rose-700">
               {state.error}
             </p>
           ) : null}

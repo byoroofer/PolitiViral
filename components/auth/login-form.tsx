@@ -14,9 +14,6 @@ type LoginFormProps = {
   redirectPath: string;
 };
 
-const inputClassName =
-  "w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-300";
-
 export function LoginForm({ redirectPath }: LoginFormProps) {
   const router = useRouter();
   const supabase = createBrowserSupabaseClient();
@@ -52,28 +49,28 @@ export function LoginForm({ redirectPath }: LoginFormProps) {
   }
 
   return (
-    <SurfaceCard className="p-8 sm:p-10">
-      <div className="space-y-6">
-        <div className="space-y-3">
-          <span className="inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-blue-700 uppercase">
-            Welcome back
-          </span>
-          <div className="space-y-2">
-            <h1 className="display-font text-4xl leading-none text-slate-950">Log in to PolitiViral</h1>
-            <p className="text-base leading-7 text-slate-600">
-              Return to your campaign or creator workspace and keep your political activation flow moving.
+    <SurfaceCard className="p-8 sm:p-10" variant="default">
+      <div className="space-y-7">
+        <div className="space-y-4">
+          <span className="eyebrow-pill">Welcome back</span>
+          <div className="space-y-3">
+            <h1 className="display-font text-4xl leading-[0.98] text-slate-950 sm:text-5xl">
+              Log in to PolitiViral
+            </h1>
+            <p className="text-base leading-8 text-slate-600">
+              Return to your campaign or creator workspace and keep your political creator program moving with better structure.
             </p>
           </div>
         </div>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700" htmlFor="login-email">
+            <label className="field-label" htmlFor="login-email">
               Email
             </label>
             <input
               autoComplete="email"
-              className={inputClassName}
+              className="field-input"
               id="login-email"
               name="email"
               placeholder="you@example.com"
@@ -83,12 +80,12 @@ export function LoginForm({ redirectPath }: LoginFormProps) {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700" htmlFor="login-password">
+            <label className="field-label" htmlFor="login-password">
               Password
             </label>
             <input
               autoComplete="current-password"
-              className={inputClassName}
+              className="field-input"
               id="login-password"
               minLength={8}
               name="password"
@@ -99,7 +96,7 @@ export function LoginForm({ redirectPath }: LoginFormProps) {
           </div>
 
           {errorMessage ? (
-            <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+            <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm leading-6 text-rose-700">
               {errorMessage}
             </p>
           ) : null}
@@ -109,13 +106,15 @@ export function LoginForm({ redirectPath }: LoginFormProps) {
           </Button>
         </form>
 
-        <p className="text-sm text-slate-600">
-          Need an account?{" "}
-          <Link className="font-semibold text-blue-700" href={buildAuthPageHref("/signup", redirectPath)}>
-            Sign up
-          </Link>
-          .
-        </p>
+        <div className="rounded-[24px] border border-slate-200/75 bg-white/72 px-5 py-4">
+          <p className="text-sm leading-7 text-slate-600">
+            Need an account?{" "}
+            <Link className="font-semibold text-blue-700" href={buildAuthPageHref("/signup", redirectPath)}>
+              Sign up
+            </Link>{" "}
+            to start with role selection and onboarding.
+          </p>
+        </div>
       </div>
     </SurfaceCard>
   );
