@@ -2,18 +2,19 @@
 
 :root {
   color-scheme: light;
-  --page-bg: #fcfcfd;
-  --page-band: #f6f7fb;
+  --page-bg: #fbfcff;
+  --page-band: #f4f7fc;
   --surface: #ffffff;
-  --surface-muted: #fafbfe;
-  --line: #e7e9f0;
-  --line-strong: #d9dde6;
-  --ink: #0b1020;
-  --ink-muted: #667085;
-  --ink-soft: #98a2b3;
-  --accent: #3958ff;
-  --accent-soft: #eef2ff;
-  --shadow-soft: 0 12px 36px rgba(15, 23, 42, 0.04);
+  --surface-muted: #f8faff;
+  --line: #e3e8f2;
+  --line-strong: #cfd8e8;
+  --ink: #081223;
+  --ink-muted: #445068;
+  --ink-soft: #67748b;
+  --accent: #0b4bb8;
+  --accent-strong: #093e98;
+  --accent-soft: #edf4ff;
+  --shadow-soft: 0 14px 38px rgba(15, 23, 42, 0.055);
 }
 
 * {
@@ -28,7 +29,9 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(180deg, #fdfdfd 0%, var(--page-bg) 100%);
+  background:
+    radial-gradient(circle at top, rgba(56, 118, 255, 0.06), transparent 26%),
+    linear-gradient(180deg, #ffffff 0%, var(--page-bg) 100%);
   color: var(--ink);
   font-family: "Avenir Next", "SF Pro Display", "Segoe UI Variable", "Inter", sans-serif;
   text-rendering: optimizeLegibility;
@@ -47,7 +50,7 @@ textarea {
 }
 
 ::selection {
-  background: rgba(57, 88, 255, 0.12);
+  background: rgba(11, 75, 184, 0.16);
   color: var(--ink);
 }
 
@@ -60,10 +63,10 @@ textarea {
 .eyebrow-pill {
   display: inline-flex;
   align-items: center;
-  color: var(--ink-muted);
+  color: var(--accent);
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
+  font-weight: 800;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
 }
 
@@ -128,9 +131,9 @@ textarea {
 .field-input:focus,
 .field-textarea:focus,
 .field-select:focus {
-  border-color: rgba(57, 88, 255, 0.6);
+  border-color: rgba(11, 75, 184, 0.64);
   box-shadow:
-    0 0 0 4px rgba(57, 88, 255, 0.1),
+    0 0 0 4px rgba(11, 75, 184, 0.12),
     0 1px 2px rgba(15, 23, 42, 0.04);
   transform: translateY(-1px);
 }
@@ -144,7 +147,7 @@ textarea {
 .soft-divider {
   height: 1px;
   width: 100%;
-  background: linear-gradient(90deg, transparent, rgba(152, 162, 179, 0.36), transparent);
+  background: linear-gradient(90deg, transparent, rgba(103, 116, 139, 0.34), transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

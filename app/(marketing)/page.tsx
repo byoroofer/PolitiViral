@@ -33,10 +33,10 @@ export default async function HomePage() {
     <div className="pb-24">
       <section className="mx-auto max-w-[1240px] px-4 pb-16 pt-14 sm:px-6 lg:px-8 lg:pb-20 lg:pt-20">
         <div className="mx-auto max-w-5xl text-center">
-          <div className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-600 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+          <div className="inline-flex items-center gap-3 rounded-full border border-[#d7e5ff] bg-white px-4 py-2 text-sm font-medium text-[#0b4bb8] shadow-[0_12px_26px_rgba(15,23,42,0.04)]">
             <div className="flex items-center gap-1">
               {Array.from({ length: 5 }).map((_, index) => (
-                <span className="h-2.5 w-2.5 rounded-full bg-amber-400" key={index} />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#0b4bb8]" key={index} />
               ))}
             </div>
             <span>Built for campaigns, PACs, committees, causes, and creators</span>
@@ -44,11 +44,15 @@ export default async function HomePage() {
 
           <h1 className="mt-10 display-font text-[3.55rem] leading-[0.9] text-slate-950 sm:text-[4.75rem] lg:text-[6.85rem]">
             Launch creator campaigns that shape
-            <span className="block text-slate-400">narrative, persuasion, and reach</span>
+            <span className="block bg-gradient-to-r from-[#0b4bb8] via-[#1663d7] to-[#39a7ff] bg-clip-text text-transparent">
+              narrative, persuasion, and reach
+            </span>
           </h1>
 
-          <p className="mx-auto mt-8 max-w-3xl text-lg leading-9 text-slate-600 sm:text-[1.45rem]">
-            PolitiViral is the premium political creator marketplace where campaigns and aligned organizations launch message-driven creator campaigns, and creators join, get selected, and get paid for serious political work.
+          <p className="mx-auto mt-8 max-w-3xl text-lg leading-9 text-slate-700 sm:text-[1.45rem]">
+            PolitiViral is the premium political creator marketplace where campaigns and
+            aligned organizations launch message-driven creator campaigns, and creators
+            join, get selected, and get paid for serious political work.
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -60,8 +64,9 @@ export default async function HomePage() {
             </ButtonLink>
           </div>
 
-          <p className="mt-5 text-sm leading-7 text-slate-500">
-            Campaigns launch fast. Creators apply quickly. Political content moves with more control.
+          <p className="mt-5 text-sm font-medium leading-7 text-slate-600">
+            Campaigns launch fast. Creators apply quickly. Political content moves with more
+            control.
           </p>
         </div>
 
@@ -70,7 +75,7 @@ export default async function HomePage() {
         </div>
 
         <div className="mt-10 text-center">
-          <p className="text-[0.72rem] font-bold tracking-[0.28em] text-slate-500 uppercase">
+          <p className="text-[0.72rem] font-bold tracking-[0.28em] text-[#0b4bb8] uppercase">
             Built for modern political operators
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -86,7 +91,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-slate-200/80 bg-[#f7f8fb]">
+      <section className="border-y border-slate-200/80 bg-[#f5f8fd]">
         <div className="mx-auto max-w-[1240px] px-4 py-12 sm:px-6 lg:px-8">
           <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
             {marketplaceStats.map((stat) => (
@@ -94,7 +99,7 @@ export default async function HomePage() {
                 <p className="display-font text-[3.2rem] leading-none text-slate-950 sm:text-[3.65rem]">
                   {stat.value}
                 </p>
-                <p className="mt-2 text-sm font-semibold tracking-[-0.01em] text-slate-500">
+                <p className="mt-2 text-sm font-semibold tracking-[-0.01em] text-slate-600">
                   {stat.label}
                 </p>
               </div>
@@ -114,12 +119,14 @@ export default async function HomePage() {
           {workflowSteps.map((step) => (
             <SurfaceCard className="h-full p-8 sm:p-10" key={step.step}>
               <div className="space-y-6">
-                <p className="display-font text-[4.2rem] leading-none text-slate-200">{step.step}</p>
+                <p className="display-font text-[4.2rem] leading-none text-[#c9d4e7]">
+                  {step.step}
+                </p>
                 <div className="space-y-4">
                   <h3 className="text-[1.8rem] font-semibold tracking-[-0.04em] text-slate-950">
                     {step.title}
                   </h3>
-                  <p className="text-base leading-8 text-slate-600">{step.description}</p>
+                  <p className="text-base leading-8 text-slate-700">{step.description}</p>
                 </div>
               </div>
             </SurfaceCard>
@@ -127,7 +134,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-slate-200/80 bg-[#f7f8fb]">
+      <section className="border-y border-slate-200/80 bg-[#f5f8fd]">
         <div className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
           <SectionIntro
             description="PolitiViral is meant to replace the patchwork of DMs, spreadsheets, and ad hoc creator ops with a marketplace product serious enough for modern campaign teams."
@@ -139,14 +146,14 @@ export default async function HomePage() {
             {platformBenefits.map((benefit) => (
               <SurfaceCard className="h-full p-8 sm:p-9" key={benefit.title}>
                 <div className="space-y-6">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-sm font-bold text-slate-950">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef5ff] text-sm font-bold text-[#0b4bb8]">
                     {benefit.badge}
                   </span>
                   <div className="space-y-3">
                     <h3 className="text-[1.85rem] font-semibold tracking-[-0.04em] text-slate-950">
                       {benefit.title}
                     </h3>
-                    <p className="text-base leading-8 text-slate-600">{benefit.description}</p>
+                    <p className="text-base leading-8 text-slate-700">{benefit.description}</p>
                   </div>
                 </div>
               </SurfaceCard>
@@ -172,12 +179,12 @@ export default async function HomePage() {
                     <h3 className="display-font text-[2.6rem] leading-[0.94] text-slate-950 sm:text-[3.15rem]">
                       {card.title}
                     </h3>
-                    <p className="text-base leading-8 text-slate-600">{card.description}</p>
+                    <p className="text-base leading-8 text-slate-700">{card.description}</p>
                   </div>
                   <ul className="grid gap-3">
                     {card.points.map((point) => (
                       <li
-                        className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm leading-7 text-slate-600"
+                        className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm leading-7 text-slate-700"
                         key={point}
                       >
                         {point}
@@ -195,7 +202,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-slate-200/80 bg-[#f7f8fb]">
+      <section className="border-y border-slate-200/80 bg-[#f5f8fd]">
         <div className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
           <SectionIntro
             description="The product surface needs to feel like a serious marketplace platform: creator discovery, briefs, reviews, and payments arranged in one clean operating layer."
@@ -209,20 +216,20 @@ export default async function HomePage() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-sm font-semibold text-slate-950">{module.title}</p>
-                    <p className="mt-2 max-w-sm text-sm leading-7 text-slate-600">{module.subtitle}</p>
+                    <p className="mt-2 max-w-sm text-sm leading-7 text-slate-700">{module.subtitle}</p>
                   </div>
-                  <span className="rounded-full border border-slate-200 bg-[#f7f8fb] px-3 py-1 text-xs font-semibold text-slate-700">
+                  <span className="rounded-full border border-slate-200 bg-[#f7fbff] px-3 py-1 text-xs font-semibold text-slate-700">
                     {module.metric}
                   </span>
                 </div>
 
-                <div className="mt-6 rounded-[24px] border border-slate-200 bg-[#fbfbfd] p-4">
+                <div className="mt-6 rounded-[24px] border border-slate-200 bg-[#fbfdff] p-4">
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
                       <div className="h-2.5 w-24 rounded-full bg-slate-200" />
                       <div className="h-2.5 w-16 rounded-full bg-slate-100" />
                     </div>
-                    <div className="rounded-full bg-slate-950 px-3 py-1 text-[0.7rem] font-semibold text-white">
+                    <div className="rounded-full bg-[#0b4bb8] px-3 py-1 text-[0.7rem] font-semibold text-white">
                       Live
                     </div>
                   </div>
@@ -230,7 +237,7 @@ export default async function HomePage() {
                   <div className="mt-5 flex flex-wrap gap-2">
                     {module.tags.map((tag) => (
                       <span
-                        className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-700 shadow-[0_1px_2px_rgba(15,23,42,0.03)]"
+                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700 shadow-[0_1px_2px_rgba(15,23,42,0.03)]"
                         key={tag}
                       >
                         {tag}
@@ -239,8 +246,8 @@ export default async function HomePage() {
                   </div>
 
                   <div className="mt-5 grid gap-3">
-                    <div className="h-10 rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.03)]" />
-                    <div className="h-10 rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.03)]" />
+                    <div className="h-10 rounded-2xl border border-slate-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.03)]" />
+                    <div className="h-10 rounded-2xl border border-slate-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.03)]" />
                   </div>
                 </div>
               </SurfaceCard>
@@ -251,14 +258,14 @@ export default async function HomePage() {
             {platformFeatureCards.map((card) => (
               <SurfaceCard className="h-full p-8" key={card.title}>
                 <div className="space-y-4">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-sm font-bold text-slate-950">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef5ff] text-sm font-bold text-[#0b4bb8]">
                     +
                   </span>
                   <div className="space-y-3">
                     <h3 className="text-[1.85rem] font-semibold tracking-[-0.04em] text-slate-950">
                       {card.title}
                     </h3>
-                    <p className="text-base leading-8 text-slate-600">{card.description}</p>
+                    <p className="text-base leading-8 text-slate-700">{card.description}</p>
                   </div>
                 </div>
               </SurfaceCard>
@@ -274,14 +281,19 @@ export default async function HomePage() {
           title="Find creators in the channels where political attention moves"
         />
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-5" id="use-cases">
-          {creatorChannels.map((channel) => (
-            <CreatorChannelTile key={channel.platform} {...channel} />
+        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-12" id="use-cases">
+          {creatorChannels.map((channel, index) => (
+            <div
+              className={index < 2 ? "xl:col-span-6" : "xl:col-span-4"}
+              key={channel.platform}
+            >
+              <CreatorChannelTile {...channel} />
+            </div>
           ))}
         </div>
       </section>
 
-      <section className="border-y border-slate-200/80 bg-[#f7f8fb]">
+      <section className="border-y border-slate-200/80 bg-[#f5f8fd]">
         <div className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
           <SectionIntro
             description="PolitiViral is designed for the kinds of political creator campaigns serious teams actually need to run, from candidate persuasion to issue education and rapid-response narrative work."
@@ -298,13 +310,13 @@ export default async function HomePage() {
                     <h3 className="text-[2rem] font-semibold tracking-[-0.04em] text-slate-950">
                       {useCase.title}
                     </h3>
-                    <p className="text-base leading-8 text-slate-600">{useCase.description}</p>
+                    <p className="text-base leading-8 text-slate-700">{useCase.description}</p>
                   </div>
 
                   <div className="grid gap-3">
                     {useCase.points.map((point) => (
                       <div
-                        className="rounded-2xl border border-slate-200 bg-[#fbfbfd] px-4 py-3 text-sm font-medium text-slate-700"
+                        className="rounded-2xl border border-slate-200 bg-[#fbfdff] px-4 py-3 text-sm font-medium text-slate-700"
                         key={point}
                       >
                         {point}
@@ -312,7 +324,7 @@ export default async function HomePage() {
                     ))}
                   </div>
 
-                  <Link className="text-sm font-semibold text-slate-950" href="/signup">
+                  <Link className="text-sm font-semibold text-[#0b4bb8]" href="/signup">
                     Launch this type of campaign
                   </Link>
                 </div>
@@ -332,19 +344,19 @@ export default async function HomePage() {
         <div className="mx-auto mt-14 max-w-4xl space-y-4">
           {faqItems.map((item) => (
             <details
-              className="group rounded-[28px] border border-slate-200 bg-white px-6 py-5 shadow-[0_1px_2px_rgba(15,23,42,0.03)]"
+              className="group rounded-[28px] border border-slate-200 bg-white px-6 py-5 shadow-[0_10px_24px_rgba(15,23,42,0.04)]"
               key={item.question}
             >
               <summary className="cursor-pointer list-none text-left text-[1.1rem] font-semibold tracking-[-0.02em] text-slate-950">
                 {item.question}
               </summary>
-              <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">{item.answer}</p>
+              <p className="mt-4 max-w-3xl text-base leading-8 text-slate-700">{item.answer}</p>
             </details>
           ))}
         </div>
       </section>
 
-      <section className="border-y border-slate-200/80 bg-[#f7f8fb]">
+      <section className="border-y border-slate-200/80 bg-[#f5f8fd]">
         <div className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
           <SurfaceCard className="px-6 py-12 text-center sm:px-10 sm:py-14">
             <div className="mx-auto max-w-4xl">
@@ -352,8 +364,10 @@ export default async function HomePage() {
               <h2 className="mt-5 display-font text-[3rem] leading-[0.92] text-slate-950 sm:text-[4.2rem]">
                 A premium political creator marketplace for campaigns that need reach and creators who move audiences
               </h2>
-              <p className="mx-auto mt-6 max-w-3xl text-lg leading-9 text-slate-600">
-                Launch message campaigns through trusted creators, activate authentic political influence at scale, and give creators a serious platform to join, get selected, and get paid.
+              <p className="mx-auto mt-6 max-w-3xl text-lg leading-9 text-slate-700">
+                Launch message campaigns through trusted creators, activate authentic
+                political influence at scale, and give creators a serious platform to join,
+                get selected, and get paid.
               </p>
 
               <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">

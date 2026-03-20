@@ -12,7 +12,7 @@ const navigationItems = [
   { href: "/for-campaigns", label: "For Campaigns", paths: ["/for-campaigns"] },
   { href: "/for-creators", label: "For Creators", paths: ["/for-creators"] },
   { href: "/#how-it-works", label: "How It Works" },
-  { href: "/#use-cases", label: "Use Cases" },
+  { href: "/#use-cases", label: "Creator Network" },
   { href: "/pricing", label: "Pricing", paths: ["/pricing"] },
 ];
 
@@ -21,14 +21,15 @@ export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-[rgba(252,252,253,0.92)] backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-[rgba(255,255,255,0.94)] backdrop-blur-xl">
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between gap-4">
-          <Link className="flex items-center gap-3" href="/" onClick={() => setMobileOpen(false)}>
-            <LogoMark />
-            <span className="text-[1.15rem] font-bold tracking-[-0.05em] text-slate-950">
-              PolitiViral
-            </span>
+        <div className="flex min-h-[88px] items-center justify-between gap-4">
+          <Link
+            className="flex min-w-0 items-center"
+            href="/"
+            onClick={() => setMobileOpen(false)}
+          >
+            <LogoMark kind="lockup" />
           </Link>
 
           <nav className="hidden items-center gap-8 lg:flex">
@@ -41,7 +42,7 @@ export function SiteHeader() {
                 <Link
                   className={cx(
                     "text-[0.96rem] font-semibold transition",
-                    isActive ? "text-slate-950" : "text-slate-700 hover:text-slate-950",
+                    isActive ? "text-slate-950" : "text-slate-700 hover:text-[#0b4bb8]",
                   )}
                   href={item.href}
                   key={item.label}
@@ -52,13 +53,10 @@ export function SiteHeader() {
             })}
           </nav>
 
-          <div className="hidden items-center gap-4 lg:flex">
-            <Link
-              className="text-[0.96rem] font-semibold text-slate-700 transition hover:text-slate-950"
-              href="/login"
-            >
+          <div className="hidden items-center gap-3 lg:flex">
+            <ButtonLink href="/login" size="md" variant="ghost">
               Log in
-            </Link>
+            </ButtonLink>
             <ButtonLink href="/signup" size="md">
               Join Marketplace
             </ButtonLink>
@@ -67,7 +65,7 @@ export function SiteHeader() {
           <button
             aria-expanded={mobileOpen}
             aria-label="Toggle navigation"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-950 lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-950 shadow-[0_8px_20px_rgba(15,23,42,0.04)] lg:hidden"
             onClick={() => setMobileOpen((current) => !current)}
             type="button"
           >
@@ -83,7 +81,7 @@ export function SiteHeader() {
             <div className="grid gap-2">
               {navigationItems.map((item) => (
                 <Link
-                  className="rounded-2xl px-3 py-3 text-sm font-semibold text-slate-700 transition hover:bg-white hover:text-slate-950"
+                  className="rounded-2xl px-3 py-3 text-sm font-semibold text-slate-700 transition hover:bg-[#f7fbff] hover:text-[#0b4bb8]"
                   href={item.href}
                   key={item.label}
                   onClick={() => setMobileOpen(false)}
@@ -94,13 +92,9 @@ export function SiteHeader() {
             </div>
 
             <div className="mt-4 flex flex-col gap-3">
-              <Link
-                className="px-3 py-2 text-sm font-semibold text-slate-700 transition hover:text-slate-950"
-                href="/login"
-                onClick={() => setMobileOpen(false)}
-              >
+              <ButtonLink className="w-full" href="/login" size="md" variant="secondary">
                 Log in
-              </Link>
+              </ButtonLink>
               <ButtonLink className="w-full" href="/signup" size="md">
                 Join Marketplace
               </ButtonLink>
