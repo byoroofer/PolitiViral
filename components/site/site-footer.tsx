@@ -1,10 +1,11 @@
 import Link from "next/link";
 
+import { ButtonLink } from "@/components/ui/button";
 import { LogoMark } from "@/components/ui/logo-mark";
 
 const footerSections = [
   {
-    title: "Product",
+    title: "Marketplace",
     links: [
       { href: "/for-campaigns", label: "For campaigns" },
       { href: "/for-creators", label: "For creators" },
@@ -12,11 +13,19 @@ const footerSections = [
     ],
   },
   {
+    title: "Product",
+    links: [
+      { href: "/#how-it-works", label: "How it works" },
+      { href: "/#use-cases", label: "Use cases" },
+      { href: "/signup", label: "Create account" },
+    ],
+  },
+  {
     title: "Access",
     links: [
       { href: "/login", label: "Log in" },
-      { href: "/signup", label: "Create account" },
       { href: "/dashboard", label: "Dashboard" },
+      { href: "/signup", label: "Join marketplace" },
     ],
   },
 ];
@@ -25,41 +34,45 @@ export function SiteFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-24 border-t border-slate-200/70">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-10 rounded-[34px] border border-white/70 bg-white/68 px-6 py-8 shadow-[0_24px_80px_rgba(8,16,40,0.08)] backdrop-blur-2xl lg:grid-cols-[minmax(0,1.25fr)_auto_auto] lg:px-8">
-          <div className="max-w-2xl space-y-5">
+    <footer className="mt-24 border-t border-slate-200/80 bg-[#f7f8fb]">
+      <div className="mx-auto max-w-[1240px] px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid gap-10 rounded-[32px] border border-slate-200 bg-white px-6 py-8 sm:px-8 lg:grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.7fr))]">
+          <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <LogoMark className="h-11 w-11 rounded-2xl" />
+              <LogoMark />
               <div>
-                <p className="text-sm font-black tracking-[0.24em] text-blue-900 uppercase">
+                <p className="text-[1.05rem] font-bold tracking-[-0.04em] text-slate-950">
                   PolitiViral
                 </p>
-                <p className="text-sm text-slate-500">Political creator activation platform</p>
+                <p className="text-sm text-slate-500">Political creator marketplace</p>
               </div>
             </div>
+
             <p className="max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
-              Premium operating infrastructure for Democratic and center-left campaigns, PACs,
-              advocacy groups, and the creators shaping political attention across TikTok,
-              Instagram, Facebook, Bluesky, and X.
+              PolitiViral helps campaigns, PACs, committees, issue groups, and aligned organizations launch message-driven creator campaigns with modern political content makers.
             </p>
-            <p className="text-sm text-slate-500">
-              {currentYear} PolitiViral. Purpose-built for political creator programs, not a
-              generic influencer marketplace.
-            </p>
+
+            <div className="flex flex-wrap gap-3">
+              <ButtonLink href="/signup" size="md">
+                Start a Campaign
+              </ButtonLink>
+              <ButtonLink href="/for-creators" size="md" variant="secondary">
+                Join as a Creator
+              </ButtonLink>
+            </div>
           </div>
 
           {footerSections.map((section) => (
             <div className="space-y-4" key={section.title}>
-              <p className="text-sm font-black tracking-[0.18em] text-slate-500 uppercase">
+              <p className="text-[0.72rem] font-bold tracking-[0.26em] text-slate-500 uppercase">
                 {section.title}
               </p>
               <div className="grid gap-3">
                 {section.links.map((link) => (
                   <Link
-                    className="text-sm font-semibold text-slate-600 transition hover:text-slate-950"
+                    className="text-sm font-semibold text-slate-700 transition hover:text-slate-950"
                     href={link.href}
-                    key={link.href}
+                    key={link.label}
                   >
                     {link.label}
                   </Link>
@@ -67,6 +80,11 @@ export function SiteFooter() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-6 flex flex-col gap-3 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>{currentYear} PolitiViral. Built for modern political creator campaigns.</p>
+          <p>Not a generic influencer marketplace.</p>
         </div>
       </div>
     </footer>

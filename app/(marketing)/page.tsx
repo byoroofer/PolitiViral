@@ -1,110 +1,26 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { CtaBand } from "@/components/marketing/cta-band";
-import { FeatureCard } from "@/components/marketing/feature-card";
-import { PageHero } from "@/components/marketing/page-hero";
-import { PlatformIdeaGrid, type PlatformIdea } from "@/components/marketing/platform-idea-grid";
-import { SectionHeading } from "@/components/marketing/section-heading";
+import {
+  audienceCards,
+  buyerSignals,
+  creatorChannels,
+  faqItems,
+  marketplaceStats,
+  platformBenefits,
+  platformFeatureCards,
+  productModules,
+  useCases,
+  workflowSteps,
+} from "@/components/marketing/homepage-data";
+import {
+  CreatorChannelTile,
+  HeroMarketplacePreview,
+  SectionIntro,
+} from "@/components/marketing/homepage-primitives";
 import { ButtonLink } from "@/components/ui/button";
 import { SurfaceCard } from "@/components/ui/surface-card";
 import { getOptionalUser } from "@/lib/auth/session";
-
-const featureCards = [
-  {
-    kicker: "Campaign ops",
-    title: "Turn creator outreach into a real operating layer",
-    description:
-      "Replace scattered spreadsheets, DMs, and intake notes with a workspace built for political teams that need structure, speed, and credibility.",
-  },
-  {
-    kicker: "Creator fit",
-    title: "Let political creators present themselves like strategic partners",
-    description:
-      "Profiles center platform, audience, voice, and political fit so campaigns can make decisions faster without generic marketplace clutter.",
-  },
-  {
-    kicker: "Political focus",
-    title: "Stay purpose-built for Democratic and center-left work",
-    description:
-      "The product is tuned for campaigns, PACs, advocacy groups, and aligned organizations that want premium creator infrastructure, not a broad sponsorship bazaar.",
-  },
-];
-
-const platformIdeas: PlatformIdea[] = [
-  {
-    platform: "TikTok",
-    headline: "Fast-cut persuasion that feels native",
-    description:
-      "Political content makers on TikTok thrive on fast reaction formats, issue explainers, direct-to-camera persuasion, and cultural framing that lands without sounding scripted.",
-    formatIdeas: [
-      "Rapid response to campaign moments",
-      "Issue explainer cutdowns and stitched reactions",
-      "Opinion videos that turn policy into plain language",
-    ],
-  },
-  {
-    platform: "Instagram",
-    headline: "Polished credibility with stronger visual control",
-    description:
-      "Instagram is ideal for creators who mix political commentary with visual polish, lifestyle context, behind-the-scenes storytelling, and clean reel-first communication.",
-    formatIdeas: [
-      "Reels that humanize candidates and organizers",
-      "Carousel-style argument framing adapted into video",
-      "Campaign-day moments that feel elevated, not staged",
-    ],
-  },
-  {
-    platform: "Facebook",
-    headline: "Community trust and local amplification",
-    description:
-      "Facebook still matters for local networks, persuasion inside existing communities, volunteer energy, and creators who know how to move older and regional audiences.",
-    formatIdeas: [
-      "Local issue explainers and organizer recaps",
-      "Community proof for events, merch, and actions",
-      "Share-friendly civic clips for existing networks",
-    ],
-  },
-  {
-    platform: "Bluesky",
-    headline: "High-context political conversation",
-    description:
-      "Bluesky rewards creators who can speak fluently to politically engaged audiences, shape opinion with clarity, and participate in fast-moving issue discourse credibly.",
-    formatIdeas: [
-      "Narrative framing around fast-moving moments",
-      "Commentary that translates online discourse into video hooks",
-      "Credibility-building takes for high-information audiences",
-    ],
-  },
-  {
-    platform: "X",
-    headline: "Rapid-response influence and narrative pressure",
-    description:
-      "X is strongest for creators who move fast, react in real time, and help campaigns reinforce talking points, quote moments, and pressure-cycle narratives.",
-    formatIdeas: [
-      "Live-event clips and debate reactions",
-      "Thread-to-video commentary pipelines",
-      "Opinion-led amplification around campaign moments",
-    ],
-  },
-];
-
-const workflowSteps = [
-  {
-    title: "Set the operating model",
-    description:
-      "Campaign teams and creators enter through role-specific flows that establish fit, platform focus, goals, and readiness.",
-  },
-  {
-    title: "Clarify the content lanes",
-    description:
-      "The product stays anchored in political deliverables like persuasion videos, opinion content, interviews, promo assets, and tracked actions.",
-  },
-  {
-    title: "Land in a real workspace",
-    description:
-      "Instead of ending at signup, milestone 1 gets both sides into a cleaner dashboard shell prepared for briefs, invites, and future program operations.",
-  },
-];
 
 export default async function HomePage() {
   const user = await getOptionalUser();
@@ -114,135 +30,96 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="mx-auto flex max-w-7xl flex-col gap-24 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-      <PageHero
-        badge="Political creator activation"
-        description="PolitiViral gives campaigns and creators a premium operating system for political content collaboration, from first signup through onboarding and dashboard readiness."
-        primaryAction={{ href: "/signup", label: "Create account" }}
-        secondaryAction={{ href: "/for-campaigns", label: "Explore campaign fit" }}
-        stats={[
-          {
-            label: "Built for",
-            value: "Democratic and center-left campaigns, PACs, advocacy groups, and political content makers.",
-          },
-          {
-            label: "Content mix",
-            value: "Persuasion videos, opinion content, interviews, promo creative, and tracked action or merch pushes.",
-          },
-          {
-            label: "Product posture",
-            value: "A polished political SaaS with real operating structure, not a generic influencer marketplace.",
-          },
-        ]}
-        title="The premium creator operating system for modern political campaigns."
-      />
+    <div className="pb-24">
+      <section className="mx-auto max-w-[1240px] px-4 pb-16 pt-14 sm:px-6 lg:px-8 lg:pb-20 lg:pt-20">
+        <div className="mx-auto max-w-5xl text-center">
+          <div className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-600 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+            <div className="flex items-center gap-1">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <span className="h-2.5 w-2.5 rounded-full bg-amber-400" key={index} />
+              ))}
+            </div>
+            <span>Built for campaigns, PACs, committees, causes, and creators</span>
+          </div>
 
-      <section className="grid gap-10">
-        <SectionHeading
-          description="The product feels stronger when the system is tight: a clear audience, a serious political point of view, and a workflow built around campaign reality instead of generic creator tooling."
-          eyebrow="What makes it credible"
-          title="This is political creator infrastructure, not marketplace theater."
-        />
+          <h1 className="mt-10 display-font text-[3.55rem] leading-[0.9] text-slate-950 sm:text-[4.75rem] lg:text-[6.85rem]">
+            Launch creator campaigns that shape
+            <span className="block text-slate-400">narrative, persuasion, and reach</span>
+          </h1>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          {featureCards.map((card) => (
-            <FeatureCard
-              description={card.description}
-              kicker={card.kicker}
-              key={card.title}
-              title={card.title}
-            />
-          ))}
+          <p className="mx-auto mt-8 max-w-3xl text-lg leading-9 text-slate-600 sm:text-[1.45rem]">
+            PolitiViral is the premium political creator marketplace where campaigns and aligned organizations launch message-driven creator campaigns, and creators join, get selected, and get paid for serious political work.
+          </p>
+
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <ButtonLink href="/signup" size="lg">
+              Start a Campaign
+            </ButtonLink>
+            <ButtonLink href="/for-creators" size="lg" variant="secondary">
+              Join as a Creator
+            </ButtonLink>
+          </div>
+
+          <p className="mt-5 text-sm leading-7 text-slate-500">
+            Campaigns launch fast. Creators apply quickly. Political content moves with more control.
+          </p>
+        </div>
+
+        <div className="mt-16 lg:mt-20">
+          <HeroMarketplacePreview />
+        </div>
+
+        <div className="mt-10 text-center">
+          <p className="text-[0.72rem] font-bold tracking-[0.28em] text-slate-500 uppercase">
+            Built for modern political operators
+          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            {buyerSignals.map((signal) => (
+              <span
+                className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-[0_1px_2px_rgba(15,23,42,0.03)]"
+                key={signal}
+              >
+                {signal}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="grid gap-10">
-        <SectionHeading
-          description="PolitiViral should spark ideas for the kinds of political content makers campaigns actually want to activate. The point is not one monolithic creator type. It is a coordinated mix across the platforms where political attention already lives."
-          eyebrow="Platform inspiration"
-          title="Feature the creator formats campaigns are already thinking about across TikTok, Instagram, Facebook, Bluesky, and X."
-        />
-
-        <PlatformIdeaGrid items={platformIdeas} />
+      <section className="border-y border-slate-200/80 bg-[#f7f8fb]">
+        <div className="mx-auto max-w-[1240px] px-4 py-12 sm:px-6 lg:px-8">
+          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
+            {marketplaceStats.map((stat) => (
+              <div className="text-center xl:text-left" key={stat.label}>
+                <p className="display-font text-[3.2rem] leading-none text-slate-950 sm:text-[3.65rem]">
+                  {stat.value}
+                </p>
+                <p className="mt-2 text-sm font-semibold tracking-[-0.01em] text-slate-500">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-2">
-        <SurfaceCard className="p-8 sm:p-10" variant="tint">
-          <div className="space-y-6">
-            <span className="eyebrow-pill">For campaigns</span>
-            <div className="space-y-4">
-              <h2 className="display-font text-4xl leading-[0.98] text-slate-950 sm:text-5xl">
-                Launch creator programs with clearer briefs, tighter intake, and a more credible internal story.
-              </h2>
-              <p className="max-w-2xl text-base leading-8 text-slate-600">
-                Set your organization, initiative, budget range, launch timeline, and creator goal in a product surface that feels ready for campaign staff, consultants, and stakeholders.
-              </p>
-            </div>
-            <ul className="grid gap-3 text-sm leading-7 text-slate-600">
-              <li className="rounded-2xl border border-white/75 bg-white/70 px-4 py-3">
-                Structured campaign onboarding instead of scattered intake.
-              </li>
-              <li className="rounded-2xl border border-white/75 bg-white/70 px-4 py-3">
-                Dashboard shell ready for creator program visibility.
-              </li>
-              <li className="rounded-2xl border border-white/75 bg-white/70 px-4 py-3">
-                A product posture strong enough to support pilot pricing and stakeholder conversations.
-              </li>
-            </ul>
-            <ButtonLink href="/for-campaigns" size="lg">
-              See campaign workflows
-            </ButtonLink>
-          </div>
-        </SurfaceCard>
-
-        <SurfaceCard className="p-8 sm:p-10" variant="default">
-          <div className="space-y-6">
-            <span className="eyebrow-pill">For creators</span>
-            <div className="space-y-4">
-              <h2 className="display-font text-4xl leading-[0.98] text-slate-950 sm:text-5xl">
-                Help creators look campaign-ready from the first impression.
-              </h2>
-              <p className="max-w-2xl text-base leading-8 text-slate-600">
-                Creator onboarding highlights platform, audience, voice, and political fit so campaigns can quickly understand who should be in the mix and why.
-              </p>
-            </div>
-            <ul className="grid gap-3 text-sm leading-7 text-slate-600">
-              <li className="rounded-2xl border border-slate-200/75 bg-white/72 px-4 py-3">
-                Cleaner profile structure for political creators, not generic sponsorship bios.
-              </li>
-              <li className="rounded-2xl border border-slate-200/75 bg-white/72 px-4 py-3">
-                A dashboard shell prepared for future briefs, invites, and approvals.
-              </li>
-              <li className="rounded-2xl border border-slate-200/75 bg-white/72 px-4 py-3">
-                Better signal for campaigns deciding between content makers across multiple platforms.
-              </li>
-            </ul>
-            <ButtonLink href="/for-creators" size="lg" variant="secondary">
-              See creator workflows
-            </ButtonLink>
-          </div>
-        </SurfaceCard>
-      </section>
-
-      <section className="grid gap-10">
-        <SectionHeading
-          description="Milestone 1 is intentionally narrow, but it already carries users from first touch into a working product shell. That shift alone makes the platform feel much more credible."
-          eyebrow="Flow"
-          title="A sharper path from first click to a usable political creator workspace."
+      <section className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28" id="how-it-works">
+        <SectionIntro
+          description="The workflow is intentionally simple: campaign teams launch message campaigns, the platform helps match aligned creators, and political content moves into review and payment with less operational drag."
+          eyebrow="Simple and effective"
+          title="How it works"
         />
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          {workflowSteps.map((step, index) => (
-            <SurfaceCard className="p-7 sm:p-8" key={step.title} variant={index === 1 ? "tint" : "default"}>
-              <div className="space-y-5">
-                <span className="text-sm font-black tracking-[0.16em] text-blue-700 uppercase">
-                  Step {index + 1}
-                </span>
-                <div className="space-y-3">
-                  <h3 className="text-2xl font-semibold tracking-[-0.03em] text-slate-950">
+        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          {workflowSteps.map((step) => (
+            <SurfaceCard className="h-full p-8 sm:p-10" key={step.step}>
+              <div className="space-y-6">
+                <p className="display-font text-[4.2rem] leading-none text-slate-200">{step.step}</p>
+                <div className="space-y-4">
+                  <h3 className="text-[1.8rem] font-semibold tracking-[-0.04em] text-slate-950">
                     {step.title}
                   </h3>
-                  <p className="text-sm leading-7 text-slate-600">{step.description}</p>
+                  <p className="text-base leading-8 text-slate-600">{step.description}</p>
                 </div>
               </div>
             </SurfaceCard>
@@ -250,13 +127,247 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <CtaBand
-        actionHref="/signup"
-        actionLabel="Start with PolitiViral"
-        description="Create an account, choose your side of the platform, and land in a polished onboarding flow and dashboard shell built for political creator operations."
-        eyebrow="Launch the workspace"
-        title="Make the product feel as serious as the campaigns and creators you want to attract."
-      />
+      <section className="border-y border-slate-200/80 bg-[#f7f8fb]">
+        <div className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
+          <SectionIntro
+            description="PolitiViral is meant to replace the patchwork of DMs, spreadsheets, and ad hoc creator ops with a marketplace product serious enough for modern campaign teams."
+            eyebrow="Why PolitiViral"
+            title="Built to replace the busywork"
+          />
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
+            {platformBenefits.map((benefit) => (
+              <SurfaceCard className="h-full p-8 sm:p-9" key={benefit.title}>
+                <div className="space-y-6">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-sm font-bold text-slate-950">
+                    {benefit.badge}
+                  </span>
+                  <div className="space-y-3">
+                    <h3 className="text-[1.85rem] font-semibold tracking-[-0.04em] text-slate-950">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-base leading-8 text-slate-600">{benefit.description}</p>
+                  </div>
+                </div>
+              </SurfaceCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
+        <SectionIntro
+          description="The marketplace needs to work for both sides at once: campaigns need real control and creator visibility, while creators need a legitimate path to selection and paid political work."
+          eyebrow="Two-sided marketplace"
+          title="Built for political buyers and political creators"
+        />
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+          {audienceCards.map((card, index) => (
+            <SurfaceCard className="h-full p-8 sm:p-10" key={card.title} variant={index === 0 ? "default" : "tint"}>
+              <div className="flex h-full flex-col justify-between gap-8">
+                <div className="space-y-5">
+                  <span className="eyebrow-pill">{card.eyebrow}</span>
+                  <div className="space-y-4">
+                    <h3 className="display-font text-[2.6rem] leading-[0.94] text-slate-950 sm:text-[3.15rem]">
+                      {card.title}
+                    </h3>
+                    <p className="text-base leading-8 text-slate-600">{card.description}</p>
+                  </div>
+                  <ul className="grid gap-3">
+                    {card.points.map((point) => (
+                      <li
+                        className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm leading-7 text-slate-600"
+                        key={point}
+                      >
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <ButtonLink href={card.href} size="lg" variant={index === 0 ? "primary" : "secondary"}>
+                  {card.action}
+                </ButtonLink>
+              </div>
+            </SurfaceCard>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-slate-200/80 bg-[#f7f8fb]">
+        <div className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
+          <SectionIntro
+            description="The product surface needs to feel like a serious marketplace platform: creator discovery, briefs, reviews, and payments arranged in one clean operating layer."
+            eyebrow="Platform"
+            title="Everything you need to run message-driven creator campaigns"
+          />
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
+            {productModules.map((module) => (
+              <SurfaceCard className="overflow-hidden p-5 sm:p-6" key={module.title}>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold text-slate-950">{module.title}</p>
+                    <p className="mt-2 max-w-sm text-sm leading-7 text-slate-600">{module.subtitle}</p>
+                  </div>
+                  <span className="rounded-full border border-slate-200 bg-[#f7f8fb] px-3 py-1 text-xs font-semibold text-slate-700">
+                    {module.metric}
+                  </span>
+                </div>
+
+                <div className="mt-6 rounded-[24px] border border-slate-200 bg-[#fbfbfd] p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <div className="h-2.5 w-24 rounded-full bg-slate-200" />
+                      <div className="h-2.5 w-16 rounded-full bg-slate-100" />
+                    </div>
+                    <div className="rounded-full bg-slate-950 px-3 py-1 text-[0.7rem] font-semibold text-white">
+                      Live
+                    </div>
+                  </div>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {module.tags.map((tag) => (
+                      <span
+                        className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-700 shadow-[0_1px_2px_rgba(15,23,42,0.03)]"
+                        key={tag}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 grid gap-3">
+                    <div className="h-10 rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.03)]" />
+                    <div className="h-10 rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.03)]" />
+                  </div>
+                </div>
+              </SurfaceCard>
+            ))}
+          </div>
+
+          <div className="mt-6 grid gap-6 lg:grid-cols-3">
+            {platformFeatureCards.map((card) => (
+              <SurfaceCard className="h-full p-8" key={card.title}>
+                <div className="space-y-4">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-sm font-bold text-slate-950">
+                    +
+                  </span>
+                  <div className="space-y-3">
+                    <h3 className="text-[1.85rem] font-semibold tracking-[-0.04em] text-slate-950">
+                      {card.title}
+                    </h3>
+                    <p className="text-base leading-8 text-slate-600">{card.description}</p>
+                  </div>
+                </div>
+              </SurfaceCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
+        <SectionIntro
+          description="Political attention does not live in one channel, and neither should the creator marketplace. The strongest campaigns activate different creator types across the platforms where audiences actually spend time."
+          eyebrow="Creator ecosystem"
+          title="Find creators in the channels where political attention moves"
+        />
+
+        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-5" id="use-cases">
+          {creatorChannels.map((channel) => (
+            <CreatorChannelTile key={channel.platform} {...channel} />
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-slate-200/80 bg-[#f7f8fb]">
+        <div className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
+          <SectionIntro
+            description="PolitiViral is designed for the kinds of political creator campaigns serious teams actually need to run, from candidate persuasion to issue education and rapid-response narrative work."
+            eyebrow="Featured use cases"
+            title="Message categories and campaign types built for political media"
+          />
+
+          <div className="mt-14 grid gap-6 lg:grid-cols-2">
+            {useCases.map((useCase) => (
+              <SurfaceCard className="h-full p-8 sm:p-9" key={useCase.title}>
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <span className="eyebrow-pill">{useCase.label}</span>
+                    <h3 className="text-[2rem] font-semibold tracking-[-0.04em] text-slate-950">
+                      {useCase.title}
+                    </h3>
+                    <p className="text-base leading-8 text-slate-600">{useCase.description}</p>
+                  </div>
+
+                  <div className="grid gap-3">
+                    {useCase.points.map((point) => (
+                      <div
+                        className="rounded-2xl border border-slate-200 bg-[#fbfbfd] px-4 py-3 text-sm font-medium text-slate-700"
+                        key={point}
+                      >
+                        {point}
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link className="text-sm font-semibold text-slate-950" href="/signup">
+                    Launch this type of campaign
+                  </Link>
+                </div>
+              </SurfaceCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
+        <SectionIntro
+          description="The first questions are the structural ones: who the marketplace is for, what kind of work runs here, and whether creators can really move into paid political campaigns."
+          eyebrow="FAQ"
+          title="Questions political teams and creators will ask first"
+        />
+
+        <div className="mx-auto mt-14 max-w-4xl space-y-4">
+          {faqItems.map((item) => (
+            <details
+              className="group rounded-[28px] border border-slate-200 bg-white px-6 py-5 shadow-[0_1px_2px_rgba(15,23,42,0.03)]"
+              key={item.question}
+            >
+              <summary className="cursor-pointer list-none text-left text-[1.1rem] font-semibold tracking-[-0.02em] text-slate-950">
+                {item.question}
+              </summary>
+              <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-slate-200/80 bg-[#f7f8fb]">
+        <div className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
+          <SurfaceCard className="px-6 py-12 text-center sm:px-10 sm:py-14">
+            <div className="mx-auto max-w-4xl">
+              <span className="eyebrow-pill">Final call</span>
+              <h2 className="mt-5 display-font text-[3rem] leading-[0.92] text-slate-950 sm:text-[4.2rem]">
+                A premium political creator marketplace for campaigns that need reach and creators who move audiences
+              </h2>
+              <p className="mx-auto mt-6 max-w-3xl text-lg leading-9 text-slate-600">
+                Launch message campaigns through trusted creators, activate authentic political influence at scale, and give creators a serious platform to join, get selected, and get paid.
+              </p>
+
+              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <ButtonLink href="/signup" size="lg">
+                  Start a Campaign
+                </ButtonLink>
+                <ButtonLink href="/for-creators" size="lg" variant="secondary">
+                  Join as a Creator
+                </ButtonLink>
+              </div>
+            </div>
+          </SurfaceCard>
+        </div>
+      </section>
     </div>
   );
 }

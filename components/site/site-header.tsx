@@ -2,83 +2,111 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 import { ButtonLink } from "@/components/ui/button";
 import { LogoMark } from "@/components/ui/logo-mark";
 import { cx } from "@/lib/utils";
 
 const navigationItems = [
-  { href: "/for-campaigns", label: "For campaigns" },
-  { href: "/for-creators", label: "For creators" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/for-campaigns", label: "For Campaigns", paths: ["/for-campaigns"] },
+  { href: "/for-creators", label: "For Creators", paths: ["/for-creators"] },
+  { href: "/#how-it-works", label: "How It Works" },
+  { href: "/#use-cases", label: "Use Cases" },
+  { href: "/pricing", label: "Pricing", paths: ["/pricing"] },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 px-3 pt-3 sm:px-4">
-      <div className="mx-auto max-w-7xl">
-        <div className="rounded-[30px] border border-white/75 bg-white/74 px-4 py-4 shadow-[0_20px_56px_rgba(8,16,40,0.08)] backdrop-blur-2xl sm:px-5">
-          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-            <div className="flex items-start justify-between gap-4">
-              <Link className="flex min-w-0 items-center gap-3" href="/">
-                <LogoMark />
-                <span className="min-w-0">
-                  <span className="block truncate text-sm font-black tracking-[0.24em] text-blue-900 uppercase">
-                    PolitiViral
-                  </span>
-                  <span className="block text-sm leading-6 text-slate-600">
-                    Creator infrastructure for campaigns and modern political content makers
-                  </span>
-                </span>
-              </Link>
+    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-[rgba(252,252,253,0.92)] backdrop-blur-xl">
+      <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between gap-4">
+          <Link className="flex items-center gap-3" href="/" onClick={() => setMobileOpen(false)}>
+            <LogoMark />
+            <span className="text-[1.15rem] font-bold tracking-[-0.05em] text-slate-950">
+              PolitiViral
+            </span>
+          </Link>
 
+          <nav className="hidden items-center gap-8 lg:flex">
+            {navigationItems.map((item) => {
+              const isActive = item.paths?.some(
+                (path) => pathname === path || pathname.startsWith(`${path}/`),
+              );
+
+              return (
+                <Link
+                  className={cx(
+                    "text-[0.96rem] font-semibold transition",
+                    isActive ? "text-slate-950" : "text-slate-700 hover:text-slate-950",
+                  )}
+                  href={item.href}
+                  key={item.label}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="hidden items-center gap-4 lg:flex">
+            <Link
+              className="text-[0.96rem] font-semibold text-slate-700 transition hover:text-slate-950"
+              href="/login"
+            >
+              Log in
+            </Link>
+            <ButtonLink href="/signup" size="md">
+              Join Marketplace
+            </ButtonLink>
+          </div>
+
+          <button
+            aria-expanded={mobileOpen}
+            aria-label="Toggle navigation"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-950 lg:hidden"
+            onClick={() => setMobileOpen((current) => !current)}
+            type="button"
+          >
+            <span className="flex flex-col gap-1.5">
+              <span className="block h-0.5 w-4 bg-current" />
+              <span className="block h-0.5 w-4 bg-current" />
+            </span>
+          </button>
+        </div>
+
+        {mobileOpen ? (
+          <div className="border-t border-slate-200/80 py-4 lg:hidden">
+            <div className="grid gap-2">
+              {navigationItems.map((item) => (
+                <Link
+                  className="rounded-2xl px-3 py-3 text-sm font-semibold text-slate-700 transition hover:bg-white hover:text-slate-950"
+                  href={item.href}
+                  key={item.label}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-4 flex flex-col gap-3">
               <Link
-                className="pt-1 text-sm font-semibold text-slate-500 transition hover:text-slate-950 sm:hidden"
+                className="px-3 py-2 text-sm font-semibold text-slate-700 transition hover:text-slate-950"
                 href="/login"
+                onClick={() => setMobileOpen(false)}
               >
                 Log in
               </Link>
-            </div>
-
-            <div className="flex flex-col gap-4 xl:flex-row xl:items-center">
-              <nav className="flex flex-wrap gap-2">
-                {navigationItems.map((item) => {
-                  const isActive =
-                    pathname === item.href || pathname.startsWith(`${item.href}/`);
-
-                  return (
-                    <Link
-                      className={cx(
-                        "rounded-full px-4 py-2 text-sm font-semibold transition",
-                        isActive
-                          ? "bg-blue-600 text-white shadow-[0_12px_28px_rgba(37,99,235,0.22)]"
-                          : "bg-white/65 text-slate-600 shadow-[inset_0_0_0_1px_rgba(148,163,184,0.18)] hover:bg-white hover:text-slate-950",
-                      )}
-                      href={item.href}
-                      key={item.href}
-                    >
-                      {item.label}
-                    </Link>
-                  );
-                })}
-              </nav>
-
-              <div className="flex items-center gap-3">
-                <Link
-                  className="hidden text-sm font-semibold text-slate-600 transition hover:text-slate-950 sm:block"
-                  href="/login"
-                >
-                  Log in
-                </Link>
-                <ButtonLink href="/signup" size="md">
-                  Get started
-                </ButtonLink>
-              </div>
+              <ButtonLink className="w-full" href="/signup" size="md">
+                Join Marketplace
+              </ButtonLink>
             </div>
           </div>
-        </div>
+        ) : null}
       </div>
     </header>
   );
