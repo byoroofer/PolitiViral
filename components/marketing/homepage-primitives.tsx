@@ -266,8 +266,16 @@ export function CreatorChannelTile({
                 <p className="truncate text-[1.05rem] font-semibold tracking-[-0.03em] text-slate-950">
                   {name}
                 </p>
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#eef5ff] text-[0.62rem] font-bold text-[#0b4bb8]">
-                  ✓
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#eef5ff] text-[#0b4bb8]">
+                  <svg aria-hidden="true" fill="none" height="11" viewBox="0 0 10 8" width="11">
+                    <path
+                      d="M1 4L3.5 6.5L9 1"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
                 </span>
               </div>
               <p className="truncate text-sm font-medium text-slate-500">{handle}</p>

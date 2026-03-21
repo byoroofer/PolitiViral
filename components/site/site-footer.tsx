@@ -38,7 +38,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1240px] px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 rounded-[34px] border border-slate-200 bg-white px-6 py-8 shadow-[0_18px_44px_rgba(15,23,42,0.04)] sm:px-8 lg:grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.72fr))]">
           <div className="space-y-6">
-            <LogoMark kind="lockup" />
+            <LogoMark className="h-[3.4rem] w-auto sm:h-[3.8rem]" kind="lockup" />
 
             <p className="max-w-xl text-sm leading-7 text-slate-700 sm:text-base">
               PolitiViral helps campaigns, PACs, committees, issue groups, and aligned

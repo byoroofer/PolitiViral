@@ -23,13 +23,9 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-[rgba(255,255,255,0.94)] backdrop-blur-xl">
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-        <div className="flex min-h-[88px] items-center justify-between gap-4">
-          <Link
-            className="flex min-w-0 items-center"
-            href="/"
-            onClick={() => setMobileOpen(false)}
-          >
-            <LogoMark kind="lockup" />
+        <div className="flex min-h-[92px] items-center justify-between gap-4">
+          <Link className="flex min-w-0 items-center" href="/" onClick={() => setMobileOpen(false)}>
+            <LogoMark className="h-[3rem] w-auto sm:h-[3.2rem]" kind="lockup" />
           </Link>
 
           <nav className="hidden items-center gap-8 lg:flex">

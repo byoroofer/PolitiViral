@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   },
   description:
     "PolitiViral is the premium political creator marketplace for campaigns, PACs, advocacy groups, and modern political content makers.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
 };
 

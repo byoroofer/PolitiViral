@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="pv-bg" x1="18" y1="10" x2="112" y2="114" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0A42B9"/>
+      <stop offset="0.48" stop-color="#1676F2"/>
+      <stop offset="1" stop-color="#4FD0FF"/>
+    </linearGradient>
+    <linearGradient id="pv-sweep" x1="28" y1="72" x2="102" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0A42B9"/>
+      <stop offset="1" stop-color="#52D4FF"/>
+    </linearGradient>
+  </defs>
+  <path d="M34 8C42.2 8 50.2 10 57.4 13.9L90.2 31.7C108.8 41.8 115.4 65.1 105.4 83.8C102.4 89.3 98.4 94.1 93.4 97.8L62.7 120.1C49.2 129.9 31 129.6 17.8 119.5C4.6 109.3 -0.6 91.9 4.7 75.8L11.3 46.1C14.1 23.8 23.2 8 34 8Z" fill="url(#pv-bg)"/>
+  <path d="M23.3 68.3C39.8 58.4 61.6 53.4 88.5 53.1C83 71.3 69.7 88.4 48.6 104.5L17 104.2L23.3 68.3Z" fill="url(#pv-sweep)" opacity=".92"/>
+  <path d="M31.2 26.8L35.8 36L46.1 37.5L38.7 44.7L40.4 54.8L31.2 49.9L22 54.8L23.8 44.7L16.4 37.5L26.7 36L31.2 26.8Z" fill="white"/>
+  <path d="M60.2 35L64 42.7L72.7 44L66.4 50.1L67.9 58.6L60.2 54.6L52.4 58.6L53.9 50.1L47.6 44L56.3 42.7L60.2 35Z" fill="white"/>
+  <text x="67" y="89" fill="white" font-family="Avenir Next, Inter, Arial, sans-serif" font-size="34" font-weight="900" letter-spacing="-3" text-anchor="middle">PV</text>
+</svg>
