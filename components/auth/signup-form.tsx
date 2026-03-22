@@ -69,7 +69,7 @@ export function SignupForm({ loginRedirectPath, postSignupPath }: SignupFormProp
       }
 
       setSuccessMessage(
-        "Account created. Check your inbox, confirm your email, and we will bring you back to role selection.",
+        "Account created. Check for your branded PolitiViral confirmation email, confirm the account, and we will bring you back to role selection.",
       );
     } catch (error) {
       setErrorMessage(
@@ -161,15 +161,9 @@ export function SignupForm({ loginRedirectPath, postSignupPath }: SignupFormProp
 
         <div className="grid gap-4 rounded-[24px] border border-slate-200/75 bg-white/72 px-5 py-5">
           <div className="grid gap-2 text-sm leading-7 text-slate-600">
-            <p>
-              1. Create your account.
-            </p>
-            <p>
-              2. Choose creator or campaign.
-            </p>
-            <p>
-              3. Complete the onboarding flow built for your role.
-            </p>
+            <p>1. Create your account.</p>
+            <p>2. Watch for the PolitiViral confirmation email.</p>
+            <p>3. Choose creator or campaign after confirmation.</p>
           </div>
           <p className="text-sm leading-7 text-slate-600">
             Already have an account?{" "}

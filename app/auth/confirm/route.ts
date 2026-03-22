@@ -46,69 +46,44 @@ function buildErrorRedirect(type: string | null, nextPath: string, message: stri
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const searchParams = requestUrl.searchParams;
-  const code = searchParams.get("code");
   const tokenHash = searchParams.get("token_hash");
   const type = searchParams.get("type");
   const nextPath = getSafeRedirectPath(
     searchParams.get("next"),
     getDefaultNextPathForEmailAction(type),
   );
-  const callbackError =
-    searchParams.get("error_description") ?? searchParams.get("error");
 
-  if (callbackError) {
+  if (!tokenHash || !isSupportedEmailOtpType(type)) {
     return NextResponse.redirect(
-      buildAbsoluteRedirect(request, buildErrorRedirect(type, nextPath, callbackError)),
+      buildAbsoluteRedirect(
+        request,
+        buildErrorRedirect(type, nextPath, "This verification link is invalid or expired."),
+      ),
     );
   }
 
   const supabase = await createServerSupabaseClient();
+  const { error } = await supabase.auth.verifyOtp({
+    token_hash: tokenHash,
+    type,
+  });
 
-  if (code) {
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-
-    if (!error) {
-      return NextResponse.redirect(buildAbsoluteRedirect(request, nextPath));
-    }
-
+  if (error) {
     return NextResponse.redirect(
       buildAbsoluteRedirect(
         request,
         buildErrorRedirect(
           type,
           nextPath,
-          "We could not complete that sign-in or confirmation link. Please try again.",
+          "We could not verify that email action. Please request a fresh link.",
         ),
       ),
     );
   }
 
-  if (tokenHash && isSupportedEmailOtpType(type)) {
-    const { error } = await supabase.auth.verifyOtp({
-      token_hash: tokenHash,
-      type,
-    });
-
-    if (!error) {
-      return NextResponse.redirect(buildAbsoluteRedirect(request, nextPath));
-    }
-
-    return NextResponse.redirect(
-      buildAbsoluteRedirect(
-        request,
-        buildErrorRedirect(type, nextPath, "This confirmation link is invalid or expired."),
-      ),
-    );
+  if (type === "recovery") {
+    return NextResponse.redirect(buildAbsoluteRedirect(request, nextPath));
   }
 
-  return NextResponse.redirect(
-    buildAbsoluteRedirect(
-      request,
-      buildErrorRedirect(
-        type,
-        nextPath,
-        "We could not verify that link. Please request a fresh email.",
-      ),
-    ),
-  );
+  return NextResponse.redirect(buildAbsoluteRedirect(request, nextPath));
 }

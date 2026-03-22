@@ -1,26 +1,23 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { SurfaceCard } from "@/components/ui/surface-card";
-import { buildAuthPageHref } from "@/lib/auth/redirects";
+import { buildLoginStatusHref } from "@/lib/auth/redirects";
 import { createBrowserSupabaseClient } from "@/lib/supabase/browser";
 
-type LoginFormProps = {
+type ResetPasswordFormProps = {
   initialErrorMessage?: string | null;
   initialStatusMessage?: string | null;
-  redirectPath: string;
 };
 
-export function LoginForm({
+export function ResetPasswordForm({
   initialErrorMessage = null,
   initialStatusMessage = null,
-  redirectPath,
-}: LoginFormProps) {
+}: ResetPasswordFormProps) {
   const router = useRouter();
   const supabase = createBrowserSupabaseClient();
   const [errorMessage, setErrorMessage] = useState<string | null>(initialErrorMessage);
@@ -42,12 +39,23 @@ export function LoginForm({
     setIsSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
-    const email = String(formData.get("email") ?? "");
     const password = String(formData.get("password") ?? "");
+    const confirmPassword = String(formData.get("confirmPassword") ?? "");
+
+    if (password.length < 8) {
+      setErrorMessage("Use at least 8 characters for your new password.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setErrorMessage("The password confirmation does not match.");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
+      const { error } = await supabase.auth.updateUser({
         password,
       });
 
@@ -55,10 +63,18 @@ export function LoginForm({
         throw error;
       }
 
-      router.push(redirectPath);
+      router.push(
+        buildLoginStatusHref(
+          "Your password has been updated. Log in with your new password.",
+        ),
+      );
       router.refresh();
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : "Unable to log in right now.");
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "We could not update your password right now.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -68,53 +84,45 @@ export function LoginForm({
     <SurfaceCard className="p-8 sm:p-10" variant="default">
       <div className="space-y-7">
         <div className="space-y-4">
-          <span className="eyebrow-pill">Welcome back</span>
+          <span className="eyebrow-pill">Choose a new password</span>
           <div className="space-y-3">
             <h1 className="display-font text-4xl leading-[0.98] text-slate-950 sm:text-5xl">
-              Log in to PolitiViral
+              Finish password recovery
             </h1>
             <p className="text-base leading-8 text-slate-600">
-              Return to your campaign or creator workspace and keep your political creator
-              program moving with better structure.
+              Set a new password for your PolitiViral account to complete the recovery flow.
             </p>
           </div>
         </div>
 
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="space-y-2">
-            <label className="field-label" htmlFor="login-email">
-              Email
+            <label className="field-label" htmlFor="reset-password">
+              New password
             </label>
             <input
-              autoComplete="email"
+              autoComplete="new-password"
               className="field-input"
-              id="login-email"
-              name="email"
-              placeholder="you@example.com"
+              id="reset-password"
+              minLength={8}
+              name="password"
+              placeholder="At least 8 characters"
               required
-              type="email"
+              type="password"
             />
           </div>
 
           <div className="space-y-2">
-            <div className="flex items-center justify-between gap-3">
-              <label className="field-label" htmlFor="login-password">
-                Password
-              </label>
-              <Link
-                className="text-sm font-semibold text-blue-700"
-                href="/reset-password"
-              >
-                Forgot password?
-              </Link>
-            </div>
+            <label className="field-label" htmlFor="reset-password-confirmation">
+              Confirm new password
+            </label>
             <input
-              autoComplete="current-password"
+              autoComplete="new-password"
               className="field-input"
-              id="login-password"
+              id="reset-password-confirmation"
               minLength={8}
-              name="password"
-              placeholder="At least 8 characters"
+              name="confirmPassword"
+              placeholder="Repeat the new password"
               required
               type="password"
             />
@@ -133,28 +141,9 @@ export function LoginForm({
           ) : null}
 
           <Button className="w-full" disabled={isSubmitting} size="lg" type="submit">
-            {isSubmitting ? "Signing in..." : "Sign in"}
+            {isSubmitting ? "Updating password..." : "Update password"}
           </Button>
         </form>
-
-        <div className="rounded-[24px] border border-slate-200/75 bg-white/72 px-5 py-4">
-          <div className="space-y-2 text-sm leading-7 text-slate-600">
-            <p>
-              Need an account?{" "}
-              <Link
-                className="font-semibold text-blue-700"
-                href={buildAuthPageHref("/signup", redirectPath)}
-              >
-                Sign up
-              </Link>{" "}
-              to start with role selection and onboarding.
-            </p>
-            <p>
-              Prefer email-only access? Use the PolitiViral magic link option below and we
-              will send a branded sign-in email to your inbox.
-            </p>
-          </div>
-        </div>
       </div>
     </SurfaceCard>
   );

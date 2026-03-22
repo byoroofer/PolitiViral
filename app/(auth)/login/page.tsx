@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { AuthSidePanel } from "@/components/auth/auth-side-panel";
 import { LoginForm } from "@/components/auth/login-form";
+import { MagicLinkRequestForm } from "@/components/auth/magic-link-request-form";
 import { getSafeRedirectPath } from "@/lib/auth/redirects";
 import { getOptionalUser } from "@/lib/auth/session";
 import { getSearchParamValue } from "@/lib/utils";
@@ -21,30 +22,39 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const redirectPath = getSafeRedirectPath(
     getSearchParamValue(resolvedSearchParams.redirectedFrom),
   );
+  const initialErrorMessage = getSearchParamValue(resolvedSearchParams.error);
+  const initialStatusMessage = getSearchParamValue(resolvedSearchParams.status);
 
   return (
-    <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_460px] lg:px-8 lg:py-12">
+    <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_520px] lg:px-8 lg:py-12">
       <AuthSidePanel
         badge="Campaigns and creators"
         description="Jump back into the political creator operating layer with the same premium structure across onboarding, campaign setup, and creator readiness."
         items={[
           {
-            label: "Campaign setup",
-            copy: "Review organization details, program goals, and creator activation priorities.",
+            label: "Password access",
+            copy: "Use your account password and return directly to your creator or campaign workspace.",
           },
           {
-            label: "Creator readiness",
-            copy: "Keep platform, audience, and content focus polished for campaign review.",
+            label: "Magic link login",
+            copy: "Request a branded PolitiViral sign-in email when you prefer inbox-based access.",
           },
           {
-            label: "Workspace shell",
-            copy: "Return to dashboards built to feel organized, credible, and ready for the next milestone.",
+            label: "Password recovery",
+            copy: "Send a branded reset email and complete recovery on app-native PolitiViral pages.",
           },
         ]}
         title="Log back into the PolitiViral workspace."
       />
 
-      <LoginForm redirectPath={redirectPath} />
+      <div className="grid gap-6">
+        <LoginForm
+          initialErrorMessage={initialErrorMessage}
+          initialStatusMessage={initialStatusMessage}
+          redirectPath={redirectPath}
+        />
+        <MagicLinkRequestForm redirectPath={redirectPath} />
+      </div>
     </div>
   );
 }
