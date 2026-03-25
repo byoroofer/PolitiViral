@@ -129,14 +129,14 @@
       "status": "active",
       "owner": "agent",
       "created_at": "2026-03-25T00:17:37.0904307-05:00",
-      "updated_at": "2026-03-25T00:17:37.0904307-05:00",
+      "updated_at": "2026-03-25T01:22:39.6311845-05:00",
       "dependencies": [],
       "related_files": [
         "lib/supabase/env.ts",
         "app/layout.tsx",
         "project-memory/current_state.json"
       ],
-      "notes": "The deployed code trims malformed values, but the Vercel dashboard values should still be corrected to prevent future regressions."
+      "notes": "The deployed code now trims malformed values and uses direct static NEXT_PUBLIC_* reads, but the Vercel dashboard values should still be corrected to prevent future regressions."
     }
   ]
 }

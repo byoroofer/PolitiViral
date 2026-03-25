@@ -1,6 +1,6 @@
 {
   "current_phase": "Milestone 1 stabilization and production-hardening",
-  "summary": "PolitiViral is a standalone Next.js App Router app live on politiviral.com with a premium reference-led homepage, marketing pages, Supabase auth, role-based onboarding, and creator/campaign dashboard shells. The repo is build-clean and the latest auth/runtime hardening patch is deployed to production. On 2026-03-25, a live signup-page client exception was traced to malformed Vercel public env values containing embedded newline characters, combined with auth forms constructing the Supabase browser client during render. The deployed fix now trims public env values and lazily creates the browser client inside submit handlers. Auth email delivery also remains temporarily routed through PolitiViral <no-reply@byoroofer.com> while politiviral.com is still blocked by the current one-domain Resend plan.",
+  "summary": "PolitiViral is a standalone Next.js App Router app live on politiviral.com with a premium reference-led homepage, marketing pages, Supabase auth, role-based onboarding, and creator/campaign dashboard shells. The repo is build-clean and the latest auth/runtime hardening patch is deployed to production. On 2026-03-25, a live signup-page client exception was traced to two combined issues: malformed Vercel public env values containing embedded newline characters and a client-bundle-unfriendly env helper that used dynamic process.env lookups for NEXT_PUBLIC_* values. The deployed fix now trims public env values, uses direct static NEXT_PUBLIC_* reads, and lazily creates the browser client inside auth submit handlers. Auth email delivery also remains temporarily routed through PolitiViral <no-reply@byoroofer.com> while politiviral.com is still blocked by the current one-domain Resend plan.",
   "active_workstreams": [
     "Auth runtime hardening and env sanitation",
     "Supabase auth email stabilization and permanent sender-domain resolution",
@@ -59,7 +59,7 @@
     },
     {
       "id": "issue-vercel-public-env-whitespace",
-      "summary": "The current Vercel production values for NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY contain embedded newline characters. The deployed code now trims them, but the dashboard values should still be cleaned.",
+      "summary": "The current Vercel production values for NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY contain embedded newline characters. The deployed code now trims them and uses direct static NEXT_PUBLIC_* reads, but the dashboard values should still be cleaned.",
       "status": "open"
     },
     {
@@ -71,11 +71,11 @@
   "recent_changes": [
     {
       "timestamp": "2026-03-25",
-      "summary": "Deployed production build politiviral-6taq5ptli-byoroofers-projects.vercel.app and re-aliased it to https://politiviral.com with auth/runtime hardening for the signup-page client exception."
+      "summary": "Deployed production build politiviral-q3jehe6oq-byoroofers-projects.vercel.app and re-aliased it to https://politiviral.com with the final env-helper fix for the signup-page client exception."
     },
     {
       "timestamp": "2026-03-25",
-      "summary": "Trimmed public env values centrally in lib/supabase/env.ts and hardened metadataBase parsing in app/layout.tsx to tolerate embedded whitespace or quotes."
+      "summary": "Trimmed public env values centrally in lib/supabase/env.ts, switched the helper to direct static NEXT_PUBLIC_* reads, and hardened metadataBase parsing in app/layout.tsx to tolerate embedded whitespace or quotes."
     },
     {
       "timestamp": "2026-03-25",
@@ -120,11 +120,11 @@
   ],
   "next_steps": [
     "Clean the malformed Vercel public env values in the production dashboard so the runtime fix is no longer compensating for bad stored values.",
-    "Verify the live signup, login, and reset-password pages after the 2026-03-25 deploy and confirm the client-side exception is gone.",
+    "Verify the live signup, login, and reset-password pages after the final 2026-03-25 deploy and confirm the client-side exception is gone.",
     "Run the full auth email checklist across signup confirmation, magic link login, password reset, invite, email change, and reauthentication while the temporary byoroofer.com sender is active.",
     "Decide whether to upgrade/free the Resend domain slot so politiviral.com can become the permanent verified sender domain.",
     "Rotate the exposed Supabase and Resend credentials after the auth email rollout is stable.",
     "Carry the homepage visual system into secondary marketing pages and replace placeholder/mock assets with real product screenshots and proof."
   ],
-  "updated_at": "2026-03-25T00:17:37.0904307-05:00"
+  "updated_at": "2026-03-25T01:22:39.6311845-05:00"
 }

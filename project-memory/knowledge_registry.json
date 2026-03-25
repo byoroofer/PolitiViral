@@ -245,11 +245,11 @@
     {
       "id": "know-0015",
       "category": "diagnosis",
-      "fact": "The 2026-03-25 signup-page client-side exception was caused by malformed public env values combined with auth forms creating the Supabase browser client during render.",
+      "fact": "The 2026-03-25 signup-page client-side exception was caused by malformed public env values combined with lib/supabase/env.ts using dynamic process.env lookups and auth forms creating the Supabase browser client during render.",
       "confidence": "high",
       "source": "Code inspection plus pulled Vercel production env values during incident diagnosis",
       "first_recorded_at": "2026-03-25T00:17:37.0904307-05:00",
-      "last_confirmed_at": "2026-03-25T00:17:37.0904307-05:00",
+      "last_confirmed_at": "2026-03-25T01:22:39.6311845-05:00",
       "status": "active",
       "related_projects": [
         "PolitiViral"
@@ -263,11 +263,11 @@
     {
       "id": "know-0016",
       "category": "deployment",
-      "fact": "The runtime-hardening fix for the signup-page client exception was deployed on 2026-03-25 to politiviral-6taq5ptli-byoroofers-projects.vercel.app and aliased to https://politiviral.com.",
+      "fact": "The final runtime-hardening fix for the signup-page client exception was deployed on 2026-03-25 to politiviral-q3jehe6oq-byoroofers-projects.vercel.app and aliased to https://politiviral.com.",
       "confidence": "high",
       "source": "Direct Vercel deployment output observed during live repair",
       "first_recorded_at": "2026-03-25T00:17:37.0904307-05:00",
-      "last_confirmed_at": "2026-03-25T00:17:37.0904307-05:00",
+      "last_confirmed_at": "2026-03-25T01:22:39.6311845-05:00",
       "status": "active",
       "related_projects": [
         "PolitiViral"

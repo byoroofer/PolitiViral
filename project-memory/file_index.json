@@ -102,7 +102,7 @@
       "criticality": "high",
       "last_touched": "2026-03-25",
       "classification": "config",
-      "notes": "Now trims accidental whitespace and quote wrappers so malformed public env values do not crash auth pages."
+      "notes": "Now trims accidental whitespace and quote wrappers while reading NEXT_PUBLIC_* vars through direct static access so malformed public env values do not crash auth pages."
     },
     {
       "path": "components/auth/signup-form.tsx",
@@ -214,7 +214,7 @@
       "criticality": "high",
       "last_touched": "2026-03-25",
       "classification": "docs",
-      "notes": "Records the live auth sender fallback, the signup client-exception root cause, and current blockers."
+      "notes": "Records the live auth sender fallback, the signup client-exception root cause, and the final 2026-03-25 deployment state."
     },
     {
       "path": "project-memory/decisions_log.json",

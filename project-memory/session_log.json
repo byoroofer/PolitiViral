@@ -127,7 +127,7 @@
   {
     "session_id": "sess-2026-03-25-signup-client-exception-fix",
     "timestamp_start": "2026-03-25T00:09:00.9700423-05:00",
-    "timestamp_end": "2026-03-25T00:17:37.0904307-05:00",
+    "timestamp_end": "2026-03-25T01:22:39.6311845-05:00",
     "user_objective": "Diagnose and repair the live signup-page client-side exception on politiviral.com.",
     "actions_taken": [
       "Loaded the canonical PolitiViral project-memory files before debugging the new incident.",
@@ -137,7 +137,9 @@
       "Moved Supabase browser client creation out of auth component render paths and into submit handlers for signup, login, magic link, password recovery, and password update.",
       "Deleted the temporary pulled env file after inspection.",
       "Verified npm run typecheck and npm run build both passed.",
-      "Deployed the patched build to Vercel production and confirmed the alias returned to https://politiviral.com."
+      "Deployed the first hardening patch to Vercel production and received user feedback that NEXT_PUBLIC_SUPABASE_URL was still reported as unset.",
+      "Traced the remaining failure to dynamic process.env lookups in lib/supabase/env.ts, replaced them with direct static NEXT_PUBLIC_* reads, and redeployed the corrected build to Vercel production.",
+      "Confirmed the production alias returned to https://politiviral.com after the final deploy."
     ],
     "files_created": [],
     "files_modified": [
@@ -170,14 +172,14 @@
     ],
     "key_findings": [
       "The production public env values for NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY contained embedded newline characters.",
-      "Auth pages were instantiating the Supabase browser client during render, which turned malformed env values into immediate client-side page crashes.",
-      "A combination of env sanitation and lazy browser-client initialization fixed the issue and was deployed live."
+      "Auth pages were instantiating the Supabase browser client during render, and lib/supabase/env.ts used dynamic process.env lookups that the client bundle could not safely inline.",
+      "A combination of env sanitation, direct static NEXT_PUBLIC_* reads, and lazy browser-client initialization fixed the issue and was deployed live."
     ],
     "decisions_added": [
       "dec-0008"
     ],
     "memory_updates": [
-      "Recorded the Vercel env-value formatting issue, the deployed runtime hardening patch, and the new follow-up task to clean the dashboard values at the source."
+      "Recorded the Vercel env-value formatting issue, clarified the direct-static-env-read requirement for client bundles, and updated the follow-up task to clean the dashboard values at the source."
     ],
     "unresolved_items": [
       "Clean the malformed Vercel public env values in the dashboard so future deploys do not depend on code-side trimming alone.",

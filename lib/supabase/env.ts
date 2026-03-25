@@ -1,9 +1,3 @@
-const publicKeyEnvNames = [
-  "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY",
-  "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
-  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-] as const;
-
 function normalizeEnvValue(value: string | null | undefined) {
   if (typeof value !== "string") {
     return null;
@@ -13,41 +7,37 @@ function normalizeEnvValue(value: string | null | undefined) {
   return normalized.length > 0 ? normalized : null;
 }
 
-function getRequiredEnv(name: "NEXT_PUBLIC_SUPABASE_URL") {
-  const value = normalizeEnvValue(process.env[name]);
-
-  if (!value) {
-    throw new Error(`${name} is not set.`);
-  }
-
-  return value;
+function getOptionalSupabaseUrl() {
+  return normalizeEnvValue(process.env.NEXT_PUBLIC_SUPABASE_URL);
 }
 
 function getOptionalPublicKey() {
-  for (const envName of publicKeyEnvNames) {
-    const value = normalizeEnvValue(process.env[envName]);
-
-    if (value) {
-      return value;
-    }
-  }
-
-  return null;
+  return (
+    normalizeEnvValue(process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY) ||
+    normalizeEnvValue(process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) ||
+    normalizeEnvValue(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+  );
 }
 
 export function hasSupabaseEnv() {
-  return Boolean(normalizeEnvValue(process.env.NEXT_PUBLIC_SUPABASE_URL) && getOptionalPublicKey());
+  return Boolean(getOptionalSupabaseUrl() && getOptionalPublicKey());
 }
 
 export function hasSupabaseAdminEnv() {
   return Boolean(
-    normalizeEnvValue(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
+    getOptionalSupabaseUrl() &&
       normalizeEnvValue(process.env.SUPABASE_SERVICE_ROLE_KEY),
   );
 }
 
 export function getSupabaseUrl() {
-  return getRequiredEnv("NEXT_PUBLIC_SUPABASE_URL");
+  const value = getOptionalSupabaseUrl();
+
+  if (!value) {
+    throw new Error("NEXT_PUBLIC_SUPABASE_URL is not set.");
+  }
+
+  return value;
 }
 
 export function getSupabasePublicKey() {

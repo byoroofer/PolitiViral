@@ -134,16 +134,16 @@
   },
   {
     "id": "dec-0008",
-    "timestamp": "2026-03-25T00:17:37.0904307-05:00",
-    "title": "Normalize public env values and lazy-initialize auth browser clients",
-    "decision": "Public env readers now trim accidental whitespace and quote wrappers, and the auth pages only create the Supabase browser client inside submit handlers instead of during render.",
-    "reason": "The live signup page threw a client-side exception because the Vercel production values for NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY contained embedded newline characters. Render-time browser client creation turned that malformed env into a page-load crash.",
+    "timestamp": "2026-03-25T01:22:39.6311845-05:00",
+    "title": "Use direct static public env reads and lazy auth browser-client initialization",
+    "decision": "The Supabase env helper now trims accidental whitespace and quote wrappers while reading NEXT_PUBLIC_* vars through direct static property access, and the auth pages only create the Supabase browser client inside submit handlers instead of during render.",
+    "reason": "The live signup page threw a client-side exception because two issues stacked together: the Vercel production values for NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY contained embedded newline characters, and lib/supabase/env.ts used dynamic process.env lookups that are not safely inlined into the client bundle.",
     "alternatives_considered": [
       "Only correct the Vercel env values and leave the code fragile to future whitespace issues.",
       "Revert the auth UI back to server-only flows.",
       "Ignore the malformed env values and treat the crash as a transient platform issue."
     ],
-    "impact": "Signup, login, magic-link, and reset flows are more resilient to accidental env formatting mistakes, and the production fix is live at politiviral.com. The Vercel dashboard values still need cleanup at the source.",
+    "impact": "Signup, login, magic-link, and reset flows are resilient both to accidental env formatting mistakes and to client-side env bundling pitfalls, and the production fix is live at politiviral.com. The Vercel dashboard values still need cleanup at the source.",
     "status": "accepted",
     "supersedes": [],
     "related_files": [
