@@ -5,6 +5,20 @@ import "@/app/globals.css";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 
+function getMetadataBase() {
+  const normalizedAppUrl = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/^['"]+|['"]+$/g, "");
+
+  if (!normalizedAppUrl) {
+    return new URL("http://localhost:3000");
+  }
+
+  try {
+    return new URL(normalizedAppUrl);
+  } catch {
+    return new URL("http://localhost:3000");
+  }
+}
+
 export const metadata: Metadata = {
   title: {
     default: "PolitiViral",
@@ -17,7 +31,7 @@ export const metadata: Metadata = {
     shortcut: "/icon.svg",
     apple: "/icon.svg",
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
+  metadataBase: getMetadataBase(),
 };
 
 type RootLayoutProps = {

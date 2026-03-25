@@ -22,7 +22,6 @@ export function LoginForm({
   redirectPath,
 }: LoginFormProps) {
   const router = useRouter();
-  const supabase = createBrowserSupabaseClient();
   const [errorMessage, setErrorMessage] = useState<string | null>(initialErrorMessage);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(initialStatusMessage);
@@ -46,6 +45,7 @@ export function LoginForm({
     const password = String(formData.get("password") ?? "");
 
     try {
+      const supabase = createBrowserSupabaseClient();
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,

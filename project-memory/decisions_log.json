@@ -1,0 +1,159 @@
+[
+  {
+    "id": "dec-0001",
+    "timestamp": "2026-03-24T17:38:44.8927284-05:00",
+    "title": "Use a standalone PolitiViral repo",
+    "decision": "PolitiViral work was moved into its own clean repository instead of continuing inside a mixed workspace with unrelated app code.",
+    "reason": "The earlier workspace contained unrelated product history that polluted builds, paths, and deployment context.",
+    "alternatives_considered": [
+      "Keep developing inside the mixed workspace and ignore unrelated code.",
+      "Refactor the original workspace into a monorepo."
+    ],
+    "impact": "PolitiViral now has a dedicated repo, cleaner builds, clearer deployment boundaries, and simpler durable memory management.",
+    "status": "accepted",
+    "supersedes": [],
+    "related_files": [
+      "README.md"
+    ]
+  },
+  {
+    "id": "dec-0002",
+    "timestamp": "2026-03-24T17:38:44.8927284-05:00",
+    "title": "Follow a reference-led premium homepage direction",
+    "decision": "The homepage/header/footer were rebuilt around competitor-inspired product-led composition instead of a generic SaaS polish pass.",
+    "reason": "The user explicitly rejected generic SaaS styling and wanted closer emulation of uploaded reference screenshots.",
+    "alternatives_considered": [
+      "Incrementally polish the original homepage.",
+      "Apply a more abstract premium SaaS redesign."
+    ],
+    "impact": "The homepage now uses a cleaner white/gray reference-led structure, stronger product mockups, and more deliberate political creator positioning.",
+    "status": "accepted",
+    "supersedes": [],
+    "related_files": [
+      "app/(marketing)/page.tsx",
+      "components/site/site-header.tsx",
+      "components/site/site-footer.tsx"
+    ]
+  },
+  {
+    "id": "dec-0003",
+    "timestamp": "2026-03-24T17:38:44.8927284-05:00",
+    "title": "Use the uploaded PolitiViral logo and custom favicon",
+    "decision": "The shared logo component and app icon were updated to match the uploaded PolitiViral branding direction.",
+    "reason": "The user wanted the live site to use the uploaded official mark and a play-arrow-plus-PV favicon treatment.",
+    "alternatives_considered": [
+      "Keep the earlier simplified logo mark.",
+      "Use a generic text-only lockup."
+    ],
+    "impact": "Header, footer, homepage product UI, and favicon now align to the user-provided brand direction.",
+    "status": "accepted",
+    "supersedes": [],
+    "related_files": [
+      "components/ui/logo-mark.tsx",
+      "app/icon.svg",
+      "components/site/site-header.tsx",
+      "components/site/site-footer.tsx"
+    ]
+  },
+  {
+    "id": "dec-0004",
+    "timestamp": "2026-03-24T17:38:44.8927284-05:00",
+    "title": "Implement branded auth mail with a Supabase Send Email Hook",
+    "decision": "Auth email branding was implemented through a Supabase Edge Function send-email hook backed by Resend and app-native auth confirmation routes.",
+    "reason": "The user wanted auth emails to feel like they came from the app rather than from Supabase shared mail.",
+    "alternatives_considered": [
+      "Use only Supabase shared templates and shared sender.",
+      "Configure custom SMTP directly without a custom hook."
+    ],
+    "impact": "Email HTML, subjects, branding, and app-native links are owned in code, but sender-domain delivery now depends on Resend domain verification.",
+    "status": "accepted",
+    "supersedes": [],
+    "related_files": [
+      "supabase/functions/auth-send-email/index.ts",
+      "app/auth/confirm/route.ts",
+      "app/reset-password/page.tsx",
+      "lib/auth/redirects.ts"
+    ]
+  },
+  {
+    "id": "dec-0005",
+    "timestamp": "2026-03-24T17:38:44.8927284-05:00",
+    "title": "Keep onboarding pages editable after completion",
+    "decision": "Creator and campaign onboarding pages should remain accessible for profile/setup editing after onboarding is marked complete.",
+    "reason": "Completed-user redirect logic made setup/profile buttons feel like dead links and blocked editing.",
+    "alternatives_considered": [
+      "Keep redirecting completed users to their dashboards.",
+      "Build separate edit-profile routes."
+    ],
+    "impact": "The existing onboarding routes now double as edit surfaces and dashboard setup links remain usable.",
+    "status": "accepted",
+    "supersedes": [],
+    "related_files": [
+      "app/creator/onboarding/page.tsx",
+      "app/campaign/onboarding/page.tsx"
+    ]
+  },
+  {
+    "id": "dec-0006",
+    "timestamp": "2026-03-24T17:38:44.8927284-05:00",
+    "title": "Store durable project state in project-memory at repo root",
+    "decision": "PolitiViral will use a canonical repo-backed memory folder at project-memory/ for durable project context and session reconstruction.",
+    "reason": "The user explicitly requested local-first, repo-backed project memory that survives across sessions.",
+    "alternatives_considered": [
+      "Use hidden .project-memory/ at repo root.",
+      "Store memory under docs/project-memory/."
+    ],
+    "impact": "Future sessions can rebuild project context from structured JSON files without depending on chat history.",
+    "status": "accepted",
+    "supersedes": [],
+    "related_files": [
+      "project-memory/project_profile.json",
+      "project-memory/current_state.json",
+      "project-memory/session_log.json"
+    ]
+  },
+  {
+    "id": "dec-0007",
+    "timestamp": "2026-03-24T18:56:49.6407805-05:00",
+    "title": "Use verified byoroofer.com as the temporary auth sender fallback",
+    "decision": "Live auth email sending was temporarily switched to PolitiViral <no-reply@byoroofer.com> so branded auth emails could deliver through the currently verified Resend domain while politiviral.com remains unavailable on the current plan.",
+    "reason": "The send-email hook was live, but politiviral.com could not be added in Resend because the account only supports one sending domain and already uses byoroofer.com. Keeping the unverified politiviral.com sender active risked signup and recovery failures on the live site.",
+    "alternatives_considered": [
+      "Disable the send-email hook and fall back to Supabase shared auth emails.",
+      "Leave the hook configured for no-reply@politiviral.com and accept delivery failure risk.",
+      "Upgrade or reconfigure Resend immediately before restoring auth delivery."
+    ],
+    "impact": "Auth email delivery is restored without code changes, but the final sender still does not match politiviral.com and the permanent branded-domain task remains open.",
+    "status": "accepted",
+    "supersedes": [],
+    "related_files": [
+      "supabase/functions/auth-send-email/index.ts",
+      "README.md",
+      "project-memory/current_state.json"
+    ]
+  },
+  {
+    "id": "dec-0008",
+    "timestamp": "2026-03-25T00:17:37.0904307-05:00",
+    "title": "Normalize public env values and lazy-initialize auth browser clients",
+    "decision": "Public env readers now trim accidental whitespace and quote wrappers, and the auth pages only create the Supabase browser client inside submit handlers instead of during render.",
+    "reason": "The live signup page threw a client-side exception because the Vercel production values for NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY contained embedded newline characters. Render-time browser client creation turned that malformed env into a page-load crash.",
+    "alternatives_considered": [
+      "Only correct the Vercel env values and leave the code fragile to future whitespace issues.",
+      "Revert the auth UI back to server-only flows.",
+      "Ignore the malformed env values and treat the crash as a transient platform issue."
+    ],
+    "impact": "Signup, login, magic-link, and reset flows are more resilient to accidental env formatting mistakes, and the production fix is live at politiviral.com. The Vercel dashboard values still need cleanup at the source.",
+    "status": "accepted",
+    "supersedes": [],
+    "related_files": [
+      "lib/supabase/env.ts",
+      "app/layout.tsx",
+      "components/auth/signup-form.tsx",
+      "components/auth/login-form.tsx",
+      "components/auth/magic-link-request-form.tsx",
+      "components/auth/password-recovery-request-form.tsx",
+      "components/auth/reset-password-form.tsx"
+    ]
+  }
+]

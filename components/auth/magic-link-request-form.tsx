@@ -13,7 +13,6 @@ type MagicLinkRequestFormProps = {
 };
 
 export function MagicLinkRequestForm({ redirectPath }: MagicLinkRequestFormProps) {
-  const supabase = createBrowserSupabaseClient();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -28,6 +27,7 @@ export function MagicLinkRequestForm({ redirectPath }: MagicLinkRequestFormProps
     const email = String(formData.get("email") ?? "");
 
     try {
+      const supabase = createBrowserSupabaseClient();
       const emailRedirectTo = buildAuthCallbackUrl(window.location.origin, redirectPath);
       const { error } = await supabase.auth.signInWithOtp({
         email,

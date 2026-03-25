@@ -17,7 +17,6 @@ export function PasswordRecoveryRequestForm({
   initialErrorMessage = null,
   initialStatusMessage = null,
 }: PasswordRecoveryRequestFormProps) {
-  const supabase = createBrowserSupabaseClient();
   const [errorMessage, setErrorMessage] = useState<string | null>(initialErrorMessage);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(initialStatusMessage);
@@ -40,6 +39,7 @@ export function PasswordRecoveryRequestForm({
     const email = String(formData.get("email") ?? "");
 
     try {
+      const supabase = createBrowserSupabaseClient();
       const redirectTo = buildResetPasswordUrl(window.location.origin);
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo,

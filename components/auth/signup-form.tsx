@@ -18,8 +18,6 @@ type SignupFormProps = {
 
 export function SignupForm({ loginRedirectPath, postSignupPath }: SignupFormProps) {
   const router = useRouter();
-  const supabase = createBrowserSupabaseClient();
-  const profilesTable = supabase.from("profiles") as any;
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -36,6 +34,8 @@ export function SignupForm({ loginRedirectPath, postSignupPath }: SignupFormProp
     const password = String(formData.get("password") ?? "");
 
     try {
+      const supabase = createBrowserSupabaseClient();
+      const profilesTable = supabase.from("profiles") as any;
       const emailRedirectTo = buildAuthCallbackUrl(window.location.origin, postSignupPath);
 
       const { data, error } = await supabase.auth.signUp({

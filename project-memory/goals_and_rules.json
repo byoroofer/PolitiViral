@@ -1,0 +1,58 @@
+{
+  "mission": "Build a polished, credible, premium political creator platform that helps Democratic and center-left campaigns and organizations find, brief, manage, and activate creators without feeling like a generic influencer marketplace.",
+  "primary_goals": [
+    "Deliver a production-minded milestone 1 with marketing pages, auth, role selection, onboarding, and dashboard shells.",
+    "Maintain a premium, high-trust visual direction that feels investor-ready and category-leading.",
+    "Own the auth email experience so confirmation, magic link, reset, invite, email change, and reauthentication flows feel app-native.",
+    "Preserve durable project knowledge in repo-backed local memory files so future sessions can reconstruct state."
+  ],
+  "secondary_goals": [
+    "Improve conversion and trust on the homepage for campaigns and creators.",
+    "Keep the repo organized, reusable, and easy to extend in milestone 2.",
+    "Document setup and deployment paths clearly for Vercel, Supabase, and email infrastructure."
+  ],
+  "non_goals": [
+    "Do not build a generic influencer marketplace.",
+    "Do not overbuild dashboard/admin features beyond milestone 1 shells.",
+    "Do not add unrelated new features just because they are possible.",
+    "Do not rely on Supabase's default shared email sender in production."
+  ],
+  "hard_rules": [
+    "Preserve a premium political SaaS direction with more blue than red.",
+    "Use Next.js App Router, TypeScript, Tailwind CSS, Supabase, and Vercel.",
+    "Keep secrets server-side only and never commit real secrets to the repo.",
+    "Create and maintain migration files for durable schema changes.",
+    "Treat project memory as durable local and repo-backed state rather than relying on chat context."
+  ],
+  "strong_preferences": [
+    "Reference-led, product-led marketing design rather than generic Tailwind SaaS styling.",
+    "Heavy emphasis on TikTok, Instagram, Facebook, Bluesky, and X creator use cases on the homepage.",
+    "Reusable components and clean routing.",
+    "Readable, branded auth email copy and app-native auth landing routes."
+  ],
+  "optional_preferences": [
+    "Use real screenshots/assets when available to replace polished placeholders.",
+    "Add custom auth domain support if the infrastructure and plan allow it."
+  ],
+  "business_constraints": [
+    "Target buyers are Democratic/progressive campaigns, PACs, committees, issue groups, and aligned organizations.",
+    "Target creators are political or persuasion-oriented content creators.",
+    "The platform must feel trustworthy, premium, and mission-driven."
+  ],
+  "technical_constraints": [
+    "Milestone 1 schema centers on profiles, organizations, creator_profiles, and campaign_profiles.",
+    "Supabase SSR clients must work with the App Router.",
+    "The auth email hook implementation currently uses Resend and Supabase Edge Functions.",
+    "Production deployment assumes Vercel and a hosted Supabase project."
+  ],
+  "compliance_notes": [
+    "Do not record real secrets inside project memory files.",
+    "Mark inferred facts clearly and avoid storing guesses as confirmed truth."
+  ],
+  "definitions_of_done": [
+    "Requested code changes are implemented and verified with typecheck/build where feasible.",
+    "Relevant project memory JSON files are updated before the session ends.",
+    "Open blockers, risks, and next steps are captured durably.",
+    "Live infrastructure status is documented when changes happen outside the repo."
+  ]
+}

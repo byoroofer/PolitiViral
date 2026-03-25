@@ -19,7 +19,6 @@ export function ResetPasswordForm({
   initialStatusMessage = null,
 }: ResetPasswordFormProps) {
   const router = useRouter();
-  const supabase = createBrowserSupabaseClient();
   const [errorMessage, setErrorMessage] = useState<string | null>(initialErrorMessage);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(initialStatusMessage);
@@ -55,6 +54,7 @@ export function ResetPasswordForm({
     }
 
     try {
+      const supabase = createBrowserSupabaseClient();
       const { error } = await supabase.auth.updateUser({
         password,
       });

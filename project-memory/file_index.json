@@ -1,0 +1,252 @@
+{
+  "files": [
+    {
+      "path": "package.json",
+      "purpose": "Top-level project package definition and scripts.",
+      "criticality": "high",
+      "last_touched": "2026-03-19",
+      "classification": "config",
+      "notes": "Defines Next.js, Supabase, Vercel, and TypeScript dependencies plus dev/build/typecheck scripts."
+    },
+    {
+      "path": "README.md",
+      "purpose": "Primary setup, deployment, and auth email documentation.",
+      "criticality": "high",
+      "last_touched": "2026-03-21",
+      "classification": "docs",
+      "notes": "Contains milestone scope, routes, auth email architecture, and setup instructions."
+    },
+    {
+      "path": "app/(marketing)/page.tsx",
+      "purpose": "Main public homepage and highest-visibility marketing surface.",
+      "criticality": "high",
+      "last_touched": "2026-03-22",
+      "classification": "user-facing",
+      "notes": "Reference-led premium homepage emphasizing campaigns, creators, and channel use cases."
+    },
+    {
+      "path": "app/(auth)/signup/page.tsx",
+      "purpose": "Public signup route entrypoint coordinating account creation and role-selection flow.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "user-facing",
+      "notes": "Primary route affected by the 2026-03-25 client-side exception investigation."
+    },
+    {
+      "path": "app/(auth)/login/page.tsx",
+      "purpose": "Public login page entrypoint for password and magic-link auth.",
+      "criticality": "high",
+      "last_touched": "2026-03-21",
+      "classification": "user-facing",
+      "notes": "Hosts login, status messaging, and magic-link request UI."
+    },
+    {
+      "path": "app/layout.tsx",
+      "purpose": "Root app shell and metadata configuration.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "config",
+      "notes": "Now sanitizes NEXT_PUBLIC_APP_URL when building metadataBase so malformed public env values do not break app metadata parsing."
+    },
+    {
+      "path": "app/auth/confirm/route.ts",
+      "purpose": "App-native email action confirmation route using token_hash verification.",
+      "criticality": "high",
+      "last_touched": "2026-03-21",
+      "classification": "server-side",
+      "notes": "Handles signup, magiclink, recovery, invite, email_change, and email token verification."
+    },
+    {
+      "path": "app/auth/callback/route.ts",
+      "purpose": "OAuth/OTP callback handler and auth redirect coordinator.",
+      "criticality": "high",
+      "last_touched": "2026-03-21",
+      "classification": "server-side",
+      "notes": "Works with app-native login and recovery redirects."
+    },
+    {
+      "path": "app/reset-password/page.tsx",
+      "purpose": "Password recovery request and update UI entrypoint.",
+      "criticality": "high",
+      "last_touched": "2026-03-21",
+      "classification": "user-facing",
+      "notes": "Supports both request and update modes."
+    },
+    {
+      "path": "app/creator/onboarding/page.tsx",
+      "purpose": "Creator onboarding and profile-edit flow.",
+      "criticality": "high",
+      "last_touched": "2026-03-22",
+      "classification": "user-facing",
+      "notes": "Must remain editable after onboarding completion; do not reintroduce redirect trap."
+    },
+    {
+      "path": "app/campaign/onboarding/page.tsx",
+      "purpose": "Campaign onboarding and setup-edit flow.",
+      "criticality": "high",
+      "last_touched": "2026-03-22",
+      "classification": "user-facing",
+      "notes": "Must remain editable after onboarding completion; do not reintroduce redirect trap."
+    },
+    {
+      "path": "lib/auth/redirects.ts",
+      "purpose": "Central auth redirect helpers for login, signup, recovery, and callback flows.",
+      "criticality": "high",
+      "last_touched": "2026-03-21",
+      "classification": "server-side",
+      "notes": "Defines safe redirect handling and app-native auth URLs."
+    },
+    {
+      "path": "lib/supabase/env.ts",
+      "purpose": "Shared Supabase environment parsing for server and browser clients.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "config",
+      "notes": "Now trims accidental whitespace and quote wrappers so malformed public env values do not crash auth pages."
+    },
+    {
+      "path": "components/auth/signup-form.tsx",
+      "purpose": "Client-side signup form and email/password registration flow.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "user-facing",
+      "notes": "Supabase browser client is now created inside submit handling instead of during render."
+    },
+    {
+      "path": "components/auth/login-form.tsx",
+      "purpose": "Client-side password login form.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "user-facing",
+      "notes": "Supabase browser client is now created inside submit handling instead of during render."
+    },
+    {
+      "path": "components/auth/magic-link-request-form.tsx",
+      "purpose": "Client-side magic-link request form.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "user-facing",
+      "notes": "Supabase browser client is now created inside submit handling instead of during render."
+    },
+    {
+      "path": "components/auth/password-recovery-request-form.tsx",
+      "purpose": "Client-side password reset email request form.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "user-facing",
+      "notes": "Supabase browser client is now created inside submit handling instead of during render."
+    },
+    {
+      "path": "components/auth/reset-password-form.tsx",
+      "purpose": "Client-side password update form for recovery flows.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "user-facing",
+      "notes": "Supabase browser client is now created inside submit handling instead of during render."
+    },
+    {
+      "path": "components/site/site-header.tsx",
+      "purpose": "Global marketing header and navigation shell.",
+      "criticality": "medium",
+      "last_touched": "2026-03-22",
+      "classification": "user-facing",
+      "notes": "Uses the branded logo lockup and homepage design direction."
+    },
+    {
+      "path": "components/site/site-footer.tsx",
+      "purpose": "Global marketing footer and final trust/navigation surface.",
+      "criticality": "medium",
+      "last_touched": "2026-03-22",
+      "classification": "user-facing",
+      "notes": "Should stay visually aligned with the homepage and header."
+    },
+    {
+      "path": "components/ui/logo-mark.tsx",
+      "purpose": "Shared PolitiViral logo component.",
+      "criticality": "medium",
+      "last_touched": "2026-03-22",
+      "classification": "user-facing",
+      "notes": "Updated to reflect the uploaded PolitiViral mark."
+    },
+    {
+      "path": "app/icon.svg",
+      "purpose": "App favicon/source icon asset.",
+      "criticality": "medium",
+      "last_touched": "2026-03-22",
+      "classification": "user-facing",
+      "notes": "Uses the play-arrow plus PV brand treatment."
+    },
+    {
+      "path": "supabase/functions/auth-send-email/index.ts",
+      "purpose": "Custom auth email send hook implementation using Resend.",
+      "criticality": "high",
+      "last_touched": "2026-03-21",
+      "classification": "infra",
+      "notes": "Core auth email rendering/sending logic. Current live delivery is restored through a verified byoroofer.com fallback sender while politiviral.com remains blocked by the current Resend plan."
+    },
+    {
+      "path": "supabase/functions/.env.example",
+      "purpose": "Example secrets file for the auth email function.",
+      "criticality": "medium",
+      "last_touched": "2026-03-21",
+      "classification": "config",
+      "notes": "Documents required function secrets without storing real values."
+    },
+    {
+      "path": "public/politiviral-auth-email-logo.svg",
+      "purpose": "Logo asset used inside branded auth email templates and hook-rendered email HTML.",
+      "criticality": "medium",
+      "last_touched": "2026-03-21",
+      "classification": "user-facing",
+      "notes": "Referenced by live auth templates and function secrets."
+    },
+    {
+      "path": "supabase/migrations/20260319103000_politiviral_milestone_1.sql",
+      "purpose": "Milestone 1 database schema migration.",
+      "criticality": "high",
+      "last_touched": "2026-03-19",
+      "classification": "data",
+      "notes": "Defines profiles, organizations, creator_profiles, campaign_profiles, trigger, and RLS."
+    },
+    {
+      "path": "project-memory/current_state.json",
+      "purpose": "Canonical current-state snapshot for PolitiViral.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "docs",
+      "notes": "Records the live auth sender fallback, the signup client-exception root cause, and current blockers."
+    },
+    {
+      "path": "project-memory/decisions_log.json",
+      "purpose": "Durable record of project-level decisions and why they were made.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "docs",
+      "notes": "Includes the temporary byoroofer.com sender fallback and the 2026-03-25 auth runtime-hardening decision."
+    },
+    {
+      "path": "project-memory/session_log.json",
+      "purpose": "Append-only reconstruction log of work completed across sessions.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "docs",
+      "notes": "Captures the auth-email incident work plus the 2026-03-25 signup client-exception diagnosis and deploy."
+    },
+    {
+      "path": "project-memory/tasks.json",
+      "purpose": "Tracked operational and product task backlog for PolitiViral.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "docs",
+      "notes": "Tracks the permanent sender-domain work, auth verification checklist, credential rotation, and Vercel env cleanup follow-up."
+    },
+    {
+      "path": "project-memory/knowledge_registry.json",
+      "purpose": "Durable factual knowledge registry for project conventions, infra truths, and recurring issues.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "docs",
+      "notes": "Stores verified operational facts such as the temporary auth sender fallback, malformed Vercel env values, and the true cause of the signup crash."
+    }
+  ]
+}

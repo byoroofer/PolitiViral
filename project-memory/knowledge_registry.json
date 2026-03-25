@@ -1,0 +1,282 @@
+{
+  "records": [
+    {
+      "id": "know-0001",
+      "category": "product",
+      "fact": "PolitiViral is a political creator activation platform focused on Democratic, progressive, pro-democracy, and persuasion-driven campaigns and organizations rather than a generic influencer marketplace.",
+      "confidence": "high",
+      "source": "User project brief and repeated product-direction instructions",
+      "first_recorded_at": "2026-03-24T17:38:44.8927284-05:00",
+      "last_confirmed_at": "2026-03-24T17:38:44.8927284-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "README.md",
+        "project-memory/goals_and_rules.json"
+      ]
+    },
+    {
+      "id": "know-0002",
+      "category": "design",
+      "fact": "The approved marketing direction is reference-led, product-led, and editorial rather than generic SaaS polish, with strong emphasis on campaigns, creators, and platform-specific political content channels.",
+      "confidence": "high",
+      "source": "User feedback on homepage redesign direction and uploaded competitor references",
+      "first_recorded_at": "2026-03-24T17:38:44.8927284-05:00",
+      "last_confirmed_at": "2026-03-24T17:38:44.8927284-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "app/(marketing)/page.tsx",
+        "components/site/site-header.tsx",
+        "components/site/site-footer.tsx"
+      ]
+    },
+    {
+      "id": "know-0003",
+      "category": "brand",
+      "fact": "The shared brand system should use the uploaded PolitiViral logo treatment and the play-arrow-plus-PV favicon rather than the earlier simplified mark.",
+      "confidence": "high",
+      "source": "User-supplied logo direction and implemented brand update",
+      "first_recorded_at": "2026-03-24T17:38:44.8927284-05:00",
+      "last_confirmed_at": "2026-03-24T17:38:44.8927284-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "components/ui/logo-mark.tsx",
+        "app/icon.svg"
+      ]
+    },
+    {
+      "id": "know-0004",
+      "category": "auth",
+      "fact": "App-native auth landing routes are /auth/confirm, /auth/callback, and /reset-password, and auth redirects are centralized in lib/auth/redirects.ts.",
+      "confidence": "high",
+      "source": "Repo inspection and auth implementation work",
+      "first_recorded_at": "2026-03-24T17:38:44.8927284-05:00",
+      "last_confirmed_at": "2026-03-24T17:38:44.8927284-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "app/auth/confirm/route.ts",
+        "app/auth/callback/route.ts",
+        "app/reset-password/page.tsx",
+        "lib/auth/redirects.ts"
+      ]
+    },
+    {
+      "id": "know-0005",
+      "category": "auth",
+      "fact": "Branded auth email rendering/sending is implemented through a Supabase Edge Function send-email hook backed by Resend, not through Supabase's default shared sender path.",
+      "confidence": "high",
+      "source": "Repo code and live Supabase configuration work",
+      "first_recorded_at": "2026-03-24T17:38:44.8927284-05:00",
+      "last_confirmed_at": "2026-03-24T17:38:44.8927284-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "supabase/functions/auth-send-email/index.ts",
+        "README.md"
+      ]
+    },
+    {
+      "id": "know-0006",
+      "category": "ux",
+      "fact": "Creator and campaign onboarding pages must remain accessible after completion because they double as the edit-profile/setup surfaces. Redirecting completed users away makes setup links feel dead.",
+      "confidence": "high",
+      "source": "Bug investigation and fix confirmed in recent code changes",
+      "first_recorded_at": "2026-03-24T17:38:44.8927284-05:00",
+      "last_confirmed_at": "2026-03-24T17:38:44.8927284-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "app/creator/onboarding/page.tsx",
+        "app/campaign/onboarding/page.tsx"
+      ]
+    },
+    {
+      "id": "know-0007",
+      "category": "ops",
+      "fact": "As of 2026-03-24, the connected Resend account has only byoroofer.com verified and cannot add politiviral.com because the current plan includes one sending-domain slot.",
+      "confidence": "high",
+      "source": "Direct Resend API response observed during live configuration",
+      "first_recorded_at": "2026-03-24T17:38:44.8927284-05:00",
+      "last_confirmed_at": "2026-03-24T17:38:44.8927284-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "supabase/functions/auth-send-email/index.ts",
+        "project-memory/current_state.json"
+      ]
+    },
+    {
+      "id": "know-0008",
+      "category": "ops",
+      "fact": "As of 2026-03-24, the live Supabase auth configuration has hook_send_email_enabled set to true and hook_send_email_uri pointed to the deployed auth-send-email function URL.",
+      "confidence": "high",
+      "source": "Direct Supabase Management API response observed during live configuration",
+      "first_recorded_at": "2026-03-24T17:38:44.8927284-05:00",
+      "last_confirmed_at": "2026-03-24T17:38:44.8927284-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "supabase/functions/auth-send-email/index.ts",
+        "project-memory/current_state.json"
+      ]
+    },
+    {
+      "id": "know-0009",
+      "category": "security",
+      "fact": "Do not store actual Supabase or Resend secrets in repo memory files. Sensitive keys were shared interactively during setup and should be rotated after the email configuration is stable.",
+      "confidence": "high",
+      "source": "Session operating rule plus observed secret-sharing during live setup",
+      "first_recorded_at": "2026-03-24T17:38:44.8927284-05:00",
+      "last_confirmed_at": "2026-03-24T17:38:44.8927284-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        ".env.example",
+        "project-memory/current_state.json"
+      ]
+    },
+    {
+      "id": "know-0010",
+      "category": "deployment",
+      "fact": "Production domain is https://politiviral.com and the Vercel project is linked under the politiviral project name.",
+      "confidence": "high",
+      "source": "Vercel link data and prior deployment work",
+      "first_recorded_at": "2026-03-24T17:38:44.8927284-05:00",
+      "last_confirmed_at": "2026-03-24T17:38:44.8927284-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        ".vercel/project.json",
+        "README.md"
+      ]
+    },
+    {
+      "id": "know-0011",
+      "category": "ops",
+      "fact": "As of 2026-03-24, live auth emails are temporarily sent as PolitiViral <no-reply@byoroofer.com> because byoroofer.com is the only currently verified Resend domain on the connected account.",
+      "confidence": "high",
+      "source": "Direct Supabase secret update and Resend delivery verification during live repair",
+      "first_recorded_at": "2026-03-24T18:56:49.6407805-05:00",
+      "last_confirmed_at": "2026-03-24T18:56:49.6407805-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "supabase/functions/auth-send-email/index.ts",
+        "project-memory/current_state.json"
+      ]
+    },
+    {
+      "id": "know-0012",
+      "category": "diagnosis",
+      "fact": "On 2026-03-24, a reported live application error was traced to auth email delivery configuration rather than a broken build or mixed-repo runtime issue. Typecheck, production build, and public route checks for /, /signup, /login, and /reset-password all succeeded.",
+      "confidence": "high",
+      "source": "Direct local verification and live route checks during incident diagnosis",
+      "first_recorded_at": "2026-03-24T18:56:49.6407805-05:00",
+      "last_confirmed_at": "2026-03-24T18:56:49.6407805-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "project-memory/current_state.json",
+        "project-memory/session_log.json"
+      ]
+    },
+    {
+      "id": "know-0013",
+      "category": "verification",
+      "fact": "After switching to the temporary byoroofer.com sender on 2026-03-24, a direct Resend send succeeded and a Supabase sign-up smoke test returned error: null with email-confirmation behavior intact.",
+      "confidence": "high",
+      "source": "Direct Resend API response and Supabase auth smoke test during live repair",
+      "first_recorded_at": "2026-03-24T18:56:49.6407805-05:00",
+      "last_confirmed_at": "2026-03-24T18:56:49.6407805-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "supabase/functions/auth-send-email/index.ts",
+        "project-memory/session_log.json"
+      ]
+    },
+    {
+      "id": "know-0014",
+      "category": "ops",
+      "fact": "On 2026-03-25, the Vercel production values for NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY were observed to contain embedded newline characters.",
+      "confidence": "high",
+      "source": "Direct inspection of a pulled production env file during signup-page incident diagnosis",
+      "first_recorded_at": "2026-03-25T00:17:37.0904307-05:00",
+      "last_confirmed_at": "2026-03-25T00:17:37.0904307-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "lib/supabase/env.ts",
+        "app/layout.tsx",
+        "project-memory/current_state.json"
+      ]
+    },
+    {
+      "id": "know-0015",
+      "category": "diagnosis",
+      "fact": "The 2026-03-25 signup-page client-side exception was caused by malformed public env values combined with auth forms creating the Supabase browser client during render.",
+      "confidence": "high",
+      "source": "Code inspection plus pulled Vercel production env values during incident diagnosis",
+      "first_recorded_at": "2026-03-25T00:17:37.0904307-05:00",
+      "last_confirmed_at": "2026-03-25T00:17:37.0904307-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "components/auth/signup-form.tsx",
+        "components/auth/login-form.tsx",
+        "lib/supabase/env.ts"
+      ]
+    },
+    {
+      "id": "know-0016",
+      "category": "deployment",
+      "fact": "The runtime-hardening fix for the signup-page client exception was deployed on 2026-03-25 to politiviral-6taq5ptli-byoroofers-projects.vercel.app and aliased to https://politiviral.com.",
+      "confidence": "high",
+      "source": "Direct Vercel deployment output observed during live repair",
+      "first_recorded_at": "2026-03-25T00:17:37.0904307-05:00",
+      "last_confirmed_at": "2026-03-25T00:17:37.0904307-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "app/layout.tsx",
+        "lib/supabase/env.ts",
+        "project-memory/session_log.json"
+      ]
+    }
+  ]
+}

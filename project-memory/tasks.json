@@ -1,0 +1,142 @@
+{
+  "tasks": [
+    {
+      "task_id": "task-0001",
+      "title": "Establish the permanent PolitiViral sender domain in Resend",
+      "description": "Make no-reply@politiviral.com the long-term verified auth sender by upgrading/freeing the account's domain slot or otherwise enabling politiviral.com in Resend.",
+      "priority": "high",
+      "status": "blocked",
+      "owner": "shared",
+      "created_at": "2026-03-24T17:38:44.8927284-05:00",
+      "updated_at": "2026-03-24T18:56:49.6407805-05:00",
+      "dependencies": [],
+      "related_files": [
+        "supabase/functions/auth-send-email/index.ts",
+        "README.md",
+        "project-memory/current_state.json"
+      ],
+      "notes": "Current Resend plan only allows one sending domain and already uses byoroofer.com. A temporary fallback sender is live, so this is now a branding/trust blocker rather than an auth-outage blocker."
+    },
+    {
+      "task_id": "task-0002",
+      "title": "Verify all auth email flows after sender fix",
+      "description": "Run the live auth email checklist for signup, magic link, password reset, invite, email change, and reauthentication once sender delivery is stable.",
+      "priority": "high",
+      "status": "active",
+      "owner": "shared",
+      "created_at": "2026-03-24T17:38:44.8927284-05:00",
+      "updated_at": "2026-03-24T18:56:49.6407805-05:00",
+      "dependencies": [
+        "task-0003"
+      ],
+      "related_files": [
+        "app/auth/confirm/route.ts",
+        "app/reset-password/page.tsx",
+        "supabase/functions/auth-send-email/index.ts",
+        "project-memory/current_state.json"
+      ],
+      "notes": "Route checks and signup smoke testing passed on 2026-03-24 after the temporary sender switch. On 2026-03-25, signup/login/reset runtime hardening was deployed after fixing malformed Vercel public env values. Magic link, reset, invite, email change, and reauthentication still need live verification."
+    },
+    {
+      "task_id": "task-0003",
+      "title": "Decide temporary fallback sender strategy",
+      "description": "If politiviral.com cannot be added to Resend immediately, decide whether to use no-reply@byoroofer.com temporarily or disable the hook until the sender domain can be verified.",
+      "priority": "high",
+      "status": "complete",
+      "owner": "agent",
+      "created_at": "2026-03-24T17:38:44.8927284-05:00",
+      "updated_at": "2026-03-24T18:56:49.6407805-05:00",
+      "dependencies": [],
+      "related_files": [
+        "supabase/functions/auth-send-email/index.ts",
+        "project-memory/current_state.json"
+      ],
+      "notes": "Completed by switching the live sender to PolitiViral <no-reply@byoroofer.com> so branded auth emails can deliver through the verified Resend domain."
+    },
+    {
+      "task_id": "task-0004",
+      "title": "Bring secondary marketing pages up to homepage quality",
+      "description": "Apply the stronger homepage design system to /for-campaigns, /for-creators, and /pricing so the whole marketing surface feels consistent.",
+      "priority": "medium",
+      "status": "backlog",
+      "owner": "agent",
+      "created_at": "2026-03-24T17:38:44.8927284-05:00",
+      "updated_at": "2026-03-24T17:38:44.8927284-05:00",
+      "dependencies": [],
+      "related_files": [
+        "app/(marketing)/for-campaigns/page.tsx",
+        "app/(marketing)/for-creators/page.tsx",
+        "app/(marketing)/pricing/page.tsx"
+      ],
+      "notes": "Homepage quality is ahead of the supporting marketing pages."
+    },
+    {
+      "task_id": "task-0005",
+      "title": "Replace mock marketing assets with real product proof",
+      "description": "Add real product screenshots, creator examples, testimonials, and campaign proof points where available to strengthen conversion and trust.",
+      "priority": "medium",
+      "status": "backlog",
+      "owner": "shared",
+      "created_at": "2026-03-24T17:38:44.8927284-05:00",
+      "updated_at": "2026-03-24T17:38:44.8927284-05:00",
+      "dependencies": [],
+      "related_files": [
+        "app/(marketing)/page.tsx",
+        "components/marketing/homepage-data.ts"
+      ],
+      "notes": "Current creator cards and product mockups are polished placeholders but not final market-proof assets."
+    },
+    {
+      "task_id": "task-0006",
+      "title": "Initialize project-memory system",
+      "description": "Create the canonical repo-backed JSON memory structure and capture current project status.",
+      "priority": "medium",
+      "status": "complete",
+      "owner": "agent",
+      "created_at": "2026-03-24T17:38:44.8927284-05:00",
+      "updated_at": "2026-03-24T17:38:44.8927284-05:00",
+      "dependencies": [],
+      "related_files": [
+        "project-memory/project_profile.json",
+        "project-memory/current_state.json",
+        "project-memory/session_log.json"
+      ],
+      "notes": "Initialized during the current session."
+    },
+    {
+      "task_id": "task-0007",
+      "title": "Rotate exposed Supabase and Resend credentials",
+      "description": "Replace the Supabase and Resend credentials that were shared interactively during live troubleshooting once auth email delivery is stable.",
+      "priority": "high",
+      "status": "backlog",
+      "owner": "shared",
+      "created_at": "2026-03-24T18:56:49.6407805-05:00",
+      "updated_at": "2026-03-24T18:56:49.6407805-05:00",
+      "dependencies": [
+        "task-0002"
+      ],
+      "related_files": [
+        "project-memory/current_state.json",
+        "README.md"
+      ],
+      "notes": "Do not store replacement secrets in repo-backed memory."
+    },
+    {
+      "task_id": "task-0008",
+      "title": "Clean malformed Vercel public env values at the source",
+      "description": "Update the Vercel production values for NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY so they no longer include embedded newline characters.",
+      "priority": "high",
+      "status": "active",
+      "owner": "agent",
+      "created_at": "2026-03-25T00:17:37.0904307-05:00",
+      "updated_at": "2026-03-25T00:17:37.0904307-05:00",
+      "dependencies": [],
+      "related_files": [
+        "lib/supabase/env.ts",
+        "app/layout.tsx",
+        "project-memory/current_state.json"
+      ],
+      "notes": "The deployed code trims malformed values, but the Vercel dashboard values should still be corrected to prevent future regressions."
+    }
+  ]
+}

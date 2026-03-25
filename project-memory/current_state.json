@@ -1,0 +1,130 @@
+{
+  "current_phase": "Milestone 1 stabilization and production-hardening",
+  "summary": "PolitiViral is a standalone Next.js App Router app live on politiviral.com with a premium reference-led homepage, marketing pages, Supabase auth, role-based onboarding, and creator/campaign dashboard shells. The repo is build-clean and the latest auth/runtime hardening patch is deployed to production. On 2026-03-25, a live signup-page client exception was traced to malformed Vercel public env values containing embedded newline characters, combined with auth forms constructing the Supabase browser client during render. The deployed fix now trims public env values and lazily creates the browser client inside submit handlers. Auth email delivery also remains temporarily routed through PolitiViral <no-reply@byoroofer.com> while politiviral.com is still blocked by the current one-domain Resend plan.",
+  "active_workstreams": [
+    "Auth runtime hardening and env sanitation",
+    "Supabase auth email stabilization and permanent sender-domain resolution",
+    "Marketing and landing page polish",
+    "Creator/campaign onboarding and dashboard shell stabilization",
+    "Repo-backed project memory maintenance"
+  ],
+  "current_priorities": [
+    "Clean the malformed Vercel public env values in the project dashboard so NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY no longer include embedded newline characters at the source.",
+    "Verify the live signup, login, and reset-password pages after the 2026-03-25 runtime hardening deploy, then continue the remaining auth email checklist across magic link, reset password, invite, email change, and reauthentication.",
+    "Decide and execute the permanent sender-domain path for no-reply@politiviral.com.",
+    "Rotate exposed Supabase and Resend credentials after the email configuration is stable.",
+    "Keep durable project memory current for future sessions."
+  ],
+  "blockers": [
+    {
+      "id": "blk-resend-domain-slot",
+      "summary": "The current Resend account is limited to one sending domain and already has byoroofer.com verified, so politiviral.com cannot be added without upgrading the plan or freeing the domain slot. This no longer blocks basic auth delivery because a verified byoroofer.com fallback sender is active, but it still blocks the final branded-domain sender.",
+      "status": "active",
+      "related_files": [
+        "supabase/functions/auth-send-email/index.ts",
+        "README.md",
+        "project-memory/tasks.json"
+      ]
+    }
+  ],
+  "risks": [
+    {
+      "id": "risk-auth-email-brand-mismatch",
+      "summary": "Live auth emails currently send from no-reply@byoroofer.com as a temporary fallback. Delivery is restored, but the sender domain does not yet match politiviral.com.",
+      "severity": "medium"
+    },
+    {
+      "id": "risk-secret-rotation",
+      "summary": "Sensitive Supabase and Resend credentials were shared interactively during setup work. They should be rotated after the email configuration stabilizes.",
+      "severity": "medium"
+    }
+  ],
+  "assumptions": [
+    {
+      "statement": "support@politiviral.com is the intended support/footer inbox for auth emails.",
+      "confidence": "medium",
+      "status": "tentative"
+    },
+    {
+      "statement": "no-reply@politiviral.com is the intended long-term sender address for auth emails.",
+      "confidence": "high",
+      "status": "tentative"
+    }
+  ],
+  "known_issues": [
+    {
+      "id": "issue-temp-sender-domain",
+      "summary": "Auth emails are temporarily sent from byoroofer.com until politiviral.com can be verified in Resend.",
+      "status": "open"
+    },
+    {
+      "id": "issue-vercel-public-env-whitespace",
+      "summary": "The current Vercel production values for NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY contain embedded newline characters. The deployed code now trims them, but the dashboard values should still be cleaned.",
+      "status": "open"
+    },
+    {
+      "id": "issue-preview-env-gap",
+      "summary": "Vercel preview environment variables have not been confirmed as fully configured for auth-related testing.",
+      "status": "open"
+    }
+  ],
+  "recent_changes": [
+    {
+      "timestamp": "2026-03-25",
+      "summary": "Deployed production build politiviral-6taq5ptli-byoroofers-projects.vercel.app and re-aliased it to https://politiviral.com with auth/runtime hardening for the signup-page client exception."
+    },
+    {
+      "timestamp": "2026-03-25",
+      "summary": "Trimmed public env values centrally in lib/supabase/env.ts and hardened metadataBase parsing in app/layout.tsx to tolerate embedded whitespace or quotes."
+    },
+    {
+      "timestamp": "2026-03-25",
+      "summary": "Moved Supabase browser client creation inside auth submit handlers so malformed public env values cannot crash signup, login, magic-link, or reset pages during render."
+    },
+    {
+      "timestamp": "2026-03-24",
+      "summary": "Switched the live auth sender to PolitiViral <no-reply@byoroofer.com> so branded auth emails can deliver through the existing verified Resend domain."
+    },
+    {
+      "timestamp": "2026-03-24",
+      "summary": "Verified direct Resend delivery using the temporary byoroofer.com fallback sender."
+    },
+    {
+      "timestamp": "2026-03-24",
+      "summary": "Verified live signup smoke testing through Supabase returned error: null after the sender fallback change."
+    },
+    {
+      "timestamp": "2026-03-24",
+      "summary": "Confirmed typecheck, production build, and public route checks for /, /signup, /login, and /reset-password all succeeded."
+    },
+    {
+      "timestamp": "2026-03-24",
+      "summary": "Deployed the auth-send-email Supabase Edge Function and set live auth branding secrets."
+    },
+    {
+      "timestamp": "2026-03-24",
+      "summary": "Updated live Supabase auth subjects/templates to branded PolitiViral versions using app-native auth routes."
+    },
+    {
+      "timestamp": "2026-03-24",
+      "summary": "Enabled the Supabase Send Email Hook and pointed it at the deployed auth-send-email function."
+    },
+    {
+      "timestamp": "2026-03-22",
+      "summary": "Pushed commit 44cced5 with branded auth email code and the fix for creator/campaign onboarding edit-link redirect loops."
+    },
+    {
+      "timestamp": "2026-03-22",
+      "summary": "Integrated the uploaded PolitiViral logo and favicon and refined homepage readability and creator profile cards."
+    }
+  ],
+  "next_steps": [
+    "Clean the malformed Vercel public env values in the production dashboard so the runtime fix is no longer compensating for bad stored values.",
+    "Verify the live signup, login, and reset-password pages after the 2026-03-25 deploy and confirm the client-side exception is gone.",
+    "Run the full auth email checklist across signup confirmation, magic link login, password reset, invite, email change, and reauthentication while the temporary byoroofer.com sender is active.",
+    "Decide whether to upgrade/free the Resend domain slot so politiviral.com can become the permanent verified sender domain.",
+    "Rotate the exposed Supabase and Resend credentials after the auth email rollout is stable.",
+    "Carry the homepage visual system into secondary marketing pages and replace placeholder/mock assets with real product screenshots and proof."
+  ],
+  "updated_at": "2026-03-25T00:17:37.0904307-05:00"
+}

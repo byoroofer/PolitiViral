@@ -1,0 +1,41 @@
+{
+  "project_name": "PolitiViral",
+  "repo_name": "PolitiViral",
+  "local_path": "D:/Playground/PolitiViral",
+  "remote_url": "https://github.com/byoroofer/PolitiViral.git",
+  "primary_purpose": "Premium political creator activation platform connecting Democratic/progressive campaigns, PACs, advocacy groups, and creators for message-driven social content and campaign activation.",
+  "owner": "byoroofer (inferred from GitHub remote)",
+  "stack": [
+    "Next.js App Router",
+    "TypeScript",
+    "Tailwind CSS",
+    "Supabase Auth",
+    "Supabase Postgres",
+    "Supabase Storage",
+    "Supabase Edge Functions",
+    "Vercel",
+    "Resend"
+  ],
+  "environments": [
+    "local",
+    "Vercel production",
+    "Supabase hosted project",
+    "Supabase Edge Functions"
+  ],
+  "related_projects": [],
+  "created_at": "2026-03-24T17:38:44.8927284-05:00",
+  "updated_at": "2026-03-25T00:17:37.0904307-05:00",
+  "status": "active",
+  "tags": [
+    "political-tech",
+    "creator-marketplace",
+    "campaigns",
+    "progressive",
+    "democratic",
+    "nextjs",
+    "supabase",
+    "vercel",
+    "auth",
+    "premium-marketing-site"
+  ]
+}

@@ -1,0 +1,193 @@
+[
+  {
+    "session_id": "sess-2026-03-24-project-memory-init",
+    "timestamp_start": "2026-03-24T17:38:44.8927284-05:00",
+    "timestamp_end": "2026-03-24T17:44:30.7087692-05:00",
+    "user_objective": "Initialize a persistent local-first, repo-backed memory system that preserves PolitiViral project state across sessions.",
+    "actions_taken": [
+      "Inspected the PolitiViral repo root, package.json, README.md, Supabase function structure, git branch, and recent commits.",
+      "Confirmed there was no existing project-memory system in the repo.",
+      "Reconstructed the active product, design, auth, deployment, and ops state from the repo and recent confirmed work.",
+      "Created the canonical project-memory/ folder and seeded the eight core JSON memory files."
+    ],
+    "files_created": [
+      "project-memory/project_profile.json",
+      "project-memory/goals_and_rules.json",
+      "project-memory/current_state.json",
+      "project-memory/decisions_log.json",
+      "project-memory/session_log.json",
+      "project-memory/tasks.json",
+      "project-memory/file_index.json",
+      "project-memory/knowledge_registry.json"
+    ],
+    "files_modified": [
+      "project-memory/project_profile.json",
+      "project-memory/goals_and_rules.json",
+      "project-memory/current_state.json",
+      "project-memory/decisions_log.json",
+      "project-memory/session_log.json",
+      "project-memory/tasks.json",
+      "project-memory/file_index.json",
+      "project-memory/knowledge_registry.json"
+    ],
+    "files_reviewed": [
+      "package.json",
+      "README.md",
+      "supabase/functions/auth-send-email/index.ts",
+      "app/auth/confirm/route.ts",
+      "app/creator/onboarding/page.tsx",
+      "app/campaign/onboarding/page.tsx"
+    ],
+    "key_findings": [
+      "PolitiViral is on a clean standalone repo and recent milestone 1 work is already pushed to main.",
+      "The live auth email system is partially configured: branded templates and hook are in place, but sender-domain delivery is blocked by the current Resend plan/domain slot.",
+      "The onboarding redirect loop that made setup/profile links feel dead has already been fixed in code."
+    ],
+    "decisions_added": [
+      "dec-0001",
+      "dec-0002",
+      "dec-0003",
+      "dec-0004",
+      "dec-0005",
+      "dec-0006"
+    ],
+    "memory_updates": [
+      "Created the initial durable project profile, goals, current state, task backlog, file map, and knowledge registry.",
+      "Recorded live auth infrastructure status and the current Resend blocker so future sessions do not repeat discovery."
+    ],
+    "unresolved_items": [
+      "Decide whether to temporarily switch auth email sending to byoroofer.com, disable the hook, or upgrade/fix Resend so politiviral.com can be verified.",
+      "Run the end-to-end auth email verification checklist after sender delivery is stable."
+    ],
+    "next_recommended_actions": [
+      "Resolve the auth email sender-domain blocker first because it affects live sign-up and recovery reliability.",
+      "Propagate the homepage design system to /for-campaigns, /for-creators, and /pricing next."
+    ]
+  },
+  {
+    "session_id": "sess-2026-03-24-live-diagnose-and-repair",
+    "timestamp_start": "2026-03-24T18:56:06.1635936-05:00",
+    "timestamp_end": "2026-03-24T18:56:49.6407805-05:00",
+    "user_objective": "Scan the repo, diagnose the reported live application errors, and repair the issue without losing project context.",
+    "actions_taken": [
+      "Loaded the canonical project-memory files before continuing work.",
+      "Ran project verification checks and confirmed npm run typecheck and npm run build both succeeded.",
+      "Checked live public routes and confirmed /, /signup, /login, and /reset-password all returned 200 OK.",
+      "Reviewed auth, onboarding, profile, and migration files to rule out repo-mix or route-level breakage.",
+      "Confirmed the live failure mode was auth email delivery from an unverified sender domain rather than a crashing app build.",
+      "Updated live Supabase function secrets to use the verified fallback sender PolitiViral <no-reply@byoroofer.com>.",
+      "Verified direct Resend sending succeeded with the fallback sender and verified a Supabase signup smoke test returned error: null."
+    ],
+    "files_created": [],
+    "files_modified": [
+      "project-memory/project_profile.json",
+      "project-memory/current_state.json",
+      "project-memory/decisions_log.json",
+      "project-memory/session_log.json",
+      "project-memory/tasks.json",
+      "project-memory/file_index.json",
+      "project-memory/knowledge_registry.json"
+    ],
+    "files_reviewed": [
+      "app/creator/onboarding/page.tsx",
+      "app/campaign/onboarding/page.tsx",
+      "components/auth/signup-form.tsx",
+      "components/auth/magic-link-request-form.tsx",
+      "components/auth/password-recovery-request-form.tsx",
+      "lib/data/user-context.ts",
+      "supabase/migrations/20260319103000_politiviral_milestone_1.sql",
+      "app/actions/profile.ts",
+      ".env.local",
+      "project-memory/current_state.json",
+      "project-memory/tasks.json"
+    ],
+    "key_findings": [
+      "The repo itself is not broken: typecheck, production build, and primary public routes all passed.",
+      "The reported live problem was auth email delivery risk caused by the send-email hook using no-reply@politiviral.com before that domain was verified in Resend.",
+      "A temporary switch to the verified byoroofer.com sender restored branded auth delivery without code changes."
+    ],
+    "decisions_added": [
+      "dec-0007"
+    ],
+    "memory_updates": [
+      "Updated current state to reflect that the live issue was diagnosed as auth-email infrastructure rather than code/runtime breakage.",
+      "Recorded the temporary byoroofer.com sender fallback, the verification results, and the remaining permanent-domain work."
+    ],
+    "unresolved_items": [
+      "Verify the remaining live auth email flows beyond signup smoke testing: magic link, password reset, invite, email change, and reauthentication.",
+      "Decide whether to upgrade or reconfigure Resend so politiviral.com can become the permanent verified sender domain.",
+      "Rotate the exposed Supabase and Resend credentials after the rollout stabilizes."
+    ],
+    "next_recommended_actions": [
+      "Run the full auth email checklist while the temporary byoroofer.com sender is active.",
+      "Choose the permanent sender-domain plan for no-reply@politiviral.com.",
+      "Continue the secondary marketing-page polish after auth delivery is fully stable."
+    ]
+  },
+  {
+    "session_id": "sess-2026-03-25-signup-client-exception-fix",
+    "timestamp_start": "2026-03-25T00:09:00.9700423-05:00",
+    "timestamp_end": "2026-03-25T00:17:37.0904307-05:00",
+    "user_objective": "Diagnose and repair the live signup-page client-side exception on politiviral.com.",
+    "actions_taken": [
+      "Loaded the canonical PolitiViral project-memory files before debugging the new incident.",
+      "Inspected the signup route, auth components, Supabase env helpers, and related layout/runtime files.",
+      "Pulled the Vercel production environment into a temporary local file and confirmed the public Supabase and app URL values contained embedded newline characters.",
+      "Patched public env handling to trim whitespace and accidental quote wrappers.",
+      "Moved Supabase browser client creation out of auth component render paths and into submit handlers for signup, login, magic link, password recovery, and password update.",
+      "Deleted the temporary pulled env file after inspection.",
+      "Verified npm run typecheck and npm run build both passed.",
+      "Deployed the patched build to Vercel production and confirmed the alias returned to https://politiviral.com."
+    ],
+    "files_created": [],
+    "files_modified": [
+      "lib/supabase/env.ts",
+      "app/layout.tsx",
+      "components/auth/signup-form.tsx",
+      "components/auth/login-form.tsx",
+      "components/auth/magic-link-request-form.tsx",
+      "components/auth/password-recovery-request-form.tsx",
+      "components/auth/reset-password-form.tsx",
+      "project-memory/project_profile.json",
+      "project-memory/current_state.json",
+      "project-memory/decisions_log.json",
+      "project-memory/session_log.json",
+      "project-memory/tasks.json",
+      "project-memory/file_index.json",
+      "project-memory/knowledge_registry.json"
+    ],
+    "files_reviewed": [
+      "app/(auth)/signup/page.tsx",
+      "components/auth/signup-form.tsx",
+      "components/auth/login-form.tsx",
+      "components/auth/magic-link-request-form.tsx",
+      "components/auth/password-recovery-request-form.tsx",
+      "components/auth/reset-password-form.tsx",
+      "app/layout.tsx",
+      "lib/supabase/env.ts",
+      ".vercel/env.production.tmp",
+      "project-memory/current_state.json"
+    ],
+    "key_findings": [
+      "The production public env values for NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY contained embedded newline characters.",
+      "Auth pages were instantiating the Supabase browser client during render, which turned malformed env values into immediate client-side page crashes.",
+      "A combination of env sanitation and lazy browser-client initialization fixed the issue and was deployed live."
+    ],
+    "decisions_added": [
+      "dec-0008"
+    ],
+    "memory_updates": [
+      "Recorded the Vercel env-value formatting issue, the deployed runtime hardening patch, and the new follow-up task to clean the dashboard values at the source."
+    ],
+    "unresolved_items": [
+      "Clean the malformed Vercel public env values in the dashboard so future deploys do not depend on code-side trimming alone.",
+      "Verify the live signup, login, and reset-password pages after CDN propagation.",
+      "Continue the remaining auth email verification checklist and permanent sender-domain work."
+    ],
+    "next_recommended_actions": [
+      "Clean the Vercel production env values for the public Supabase URL, public key, and app URL.",
+      "Open the live signup and login pages and confirm the browser exception is gone.",
+      "Then continue the broader auth verification checklist."
+    ]
+  }
+]
