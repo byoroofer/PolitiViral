@@ -155,5 +155,25 @@
       "components/auth/password-recovery-request-form.tsx",
       "components/auth/reset-password-form.tsx"
     ]
+  },
+  {
+    "id": "dec-0009",
+    "timestamp": "2026-03-25T01:32:13.0927952-05:00",
+    "title": "Use a route-handler-specific Supabase client for email auth links",
+    "decision": "The /auth/confirm and /auth/callback routes now use a route-handler-specific Supabase SSR client that captures auth cookie mutations and applies them to redirect responses.",
+    "reason": "Magic links and email confirmations were verifying successfully but could fail to establish a browser session because the earlier helper was designed for Server Components, not route-handler redirects.",
+    "alternatives_considered": [
+      "Keep the route handlers on the Server Component helper and hope cookie mutation propagated through redirects.",
+      "Move all email-link auth back to raw Supabase hosted URLs.",
+      "Convert the auth-link flow to a client-side token exchange."
+    ],
+    "impact": "Email-link and confirmation flows now persist the auth session before redirecting, which should make magic-link login and confirmation links behave like real sign-ins instead of dead-end redirects.",
+    "status": "accepted",
+    "supersedes": [],
+    "related_files": [
+      "lib/supabase/route-handler.ts",
+      "app/auth/confirm/route.ts",
+      "app/auth/callback/route.ts"
+    ]
   }
 ]

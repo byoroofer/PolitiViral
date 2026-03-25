@@ -1,8 +1,8 @@
 {
   "current_phase": "Milestone 1 stabilization and production-hardening",
-  "summary": "PolitiViral is a standalone Next.js App Router app live on politiviral.com with a premium reference-led homepage, marketing pages, Supabase auth, role-based onboarding, and creator/campaign dashboard shells. The repo is build-clean and the latest auth/runtime hardening patch is deployed to production. On 2026-03-25, a live signup-page client exception was traced to two combined issues: malformed Vercel public env values containing embedded newline characters and a client-bundle-unfriendly env helper that used dynamic process.env lookups for NEXT_PUBLIC_* values. The deployed fix now trims public env values, uses direct static NEXT_PUBLIC_* reads, and lazily creates the browser client inside auth submit handlers. Auth email delivery also remains temporarily routed through PolitiViral <no-reply@byoroofer.com> while politiviral.com is still blocked by the current one-domain Resend plan.",
+  "summary": "PolitiViral is a standalone Next.js App Router app live on politiviral.com with a premium reference-led homepage, marketing pages, Supabase auth, role-based onboarding, and creator/campaign dashboard shells. The repo is build-clean and the latest auth/runtime hardening patch is deployed to production. On 2026-03-25, the auth surface required two rounds of production fixes: first for malformed Vercel public env values plus client-bundle-unfriendly env reads, and then for email-link session persistence. The deployed auth fixes now trim public env values, use direct static NEXT_PUBLIC_* reads, lazily create the browser client inside auth submit handlers, and use a route-handler-specific Supabase client so magic links and email confirmations can persist cookies on redirect responses. Auth email delivery still remains temporarily routed through PolitiViral <no-reply@byoroofer.com> while politiviral.com is blocked by the current one-domain Resend plan.",
   "active_workstreams": [
-    "Auth runtime hardening and env sanitation",
+    "Auth runtime hardening, env sanitation, and email-link cookie persistence",
     "Supabase auth email stabilization and permanent sender-domain resolution",
     "Marketing and landing page polish",
     "Creator/campaign onboarding and dashboard shell stabilization",
@@ -10,7 +10,7 @@
   ],
   "current_priorities": [
     "Clean the malformed Vercel public env values in the project dashboard so NEXT_PUBLIC_APP_URL, NEXT_PUBLIC_SUPABASE_URL, and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY no longer include embedded newline characters at the source.",
-    "Verify the live signup, login, and reset-password pages after the 2026-03-25 runtime hardening deploy, then continue the remaining auth email checklist across magic link, reset password, invite, email change, and reauthentication.",
+    "Verify the live signup, login, magic-link callback, and reset-password pages after the final 2026-03-25 auth deploy, then continue the remaining auth email checklist across invite, email change, and reauthentication.",
     "Decide and execute the permanent sender-domain path for no-reply@politiviral.com.",
     "Rotate exposed Supabase and Resend credentials after the email configuration is stable.",
     "Keep durable project memory current for future sessions."
@@ -71,6 +71,18 @@
   "recent_changes": [
     {
       "timestamp": "2026-03-25",
+      "summary": "Deployed production build politiviral-3mzasqnvr-byoroofers-projects.vercel.app and re-aliased it to https://politiviral.com with the auth callback/confirm cookie-persistence fix for email links."
+    },
+    {
+      "timestamp": "2026-03-25",
+      "summary": "Added a route-handler-specific Supabase client and updated /auth/confirm plus /auth/callback so OTP verification and code exchange carry auth cookies onto redirect responses."
+    },
+    {
+      "timestamp": "2026-03-25",
+      "summary": "Verified a live magic-link request smoke test through Supabase returned error: null after the auth-link fix."
+    },
+    {
+      "timestamp": "2026-03-25",
       "summary": "Deployed production build politiviral-q3jehe6oq-byoroofers-projects.vercel.app and re-aliased it to https://politiviral.com with the final env-helper fix for the signup-page client exception."
     },
     {
@@ -120,11 +132,11 @@
   ],
   "next_steps": [
     "Clean the malformed Vercel public env values in the production dashboard so the runtime fix is no longer compensating for bad stored values.",
-    "Verify the live signup, login, and reset-password pages after the final 2026-03-25 deploy and confirm the client-side exception is gone.",
-    "Run the full auth email checklist across signup confirmation, magic link login, password reset, invite, email change, and reauthentication while the temporary byoroofer.com sender is active.",
+    "Verify the live signup, login, magic-link callback, and reset-password pages after the final 2026-03-25 deploy and confirm both the client-side exception and email-link session issue are gone.",
+    "Run the remaining auth email checklist across invite, email change, and reauthentication while the temporary byoroofer.com sender is active.",
     "Decide whether to upgrade/free the Resend domain slot so politiviral.com can become the permanent verified sender domain.",
     "Rotate the exposed Supabase and Resend credentials after the auth email rollout is stable.",
     "Carry the homepage visual system into secondary marketing pages and replace placeholder/mock assets with real product screenshots and proof."
   ],
-  "updated_at": "2026-03-25T01:22:39.6311845-05:00"
+  "updated_at": "2026-03-25T01:32:13.0927952-05:00"
 }

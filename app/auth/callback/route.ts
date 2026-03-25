@@ -7,7 +7,7 @@ import {
   getDefaultNextPathForEmailAction,
   getSafeRedirectPath,
 } from "@/lib/auth/redirects";
-import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { createRouteHandlerSupabaseClient } from "@/lib/supabase/route-handler";
 
 const supportedEmailOtpTypes: EmailOtpType[] = [
   "email",
@@ -62,13 +62,14 @@ export async function GET(request: Request) {
     );
   }
 
-  const supabase = await createServerSupabaseClient();
+  const { applyCookies, supabase } = createRouteHandlerSupabaseClient(request);
 
   if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      return NextResponse.redirect(buildAbsoluteRedirect(request, nextPath));
+      const redirectResponse = NextResponse.redirect(buildAbsoluteRedirect(request, nextPath));
+      return applyCookies(redirectResponse);
     }
 
     return NextResponse.redirect(
@@ -90,7 +91,8 @@ export async function GET(request: Request) {
     });
 
     if (!error) {
-      return NextResponse.redirect(buildAbsoluteRedirect(request, nextPath));
+      const redirectResponse = NextResponse.redirect(buildAbsoluteRedirect(request, nextPath));
+      return applyCookies(redirectResponse);
     }
 
     return NextResponse.redirect(

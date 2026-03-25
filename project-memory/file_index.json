@@ -52,17 +52,17 @@
       "path": "app/auth/confirm/route.ts",
       "purpose": "App-native email action confirmation route using token_hash verification.",
       "criticality": "high",
-      "last_touched": "2026-03-21",
+      "last_touched": "2026-03-25",
       "classification": "server-side",
-      "notes": "Handles signup, magiclink, recovery, invite, email_change, and email token verification."
+      "notes": "Handles signup, magiclink, recovery, invite, email_change, and email token verification with route-handler cookie persistence."
     },
     {
       "path": "app/auth/callback/route.ts",
       "purpose": "OAuth/OTP callback handler and auth redirect coordinator.",
       "criticality": "high",
-      "last_touched": "2026-03-21",
+      "last_touched": "2026-03-25",
       "classification": "server-side",
-      "notes": "Works with app-native login and recovery redirects."
+      "notes": "Works with app-native login and recovery redirects and now applies auth cookies to redirect responses."
     },
     {
       "path": "app/reset-password/page.tsx",
@@ -103,6 +103,14 @@
       "last_touched": "2026-03-25",
       "classification": "config",
       "notes": "Now trims accidental whitespace and quote wrappers while reading NEXT_PUBLIC_* vars through direct static access so malformed public env values do not crash auth pages."
+    },
+    {
+      "path": "lib/supabase/route-handler.ts",
+      "purpose": "Supabase SSR client helper for route handlers that need auth cookies to survive redirect responses.",
+      "criticality": "high",
+      "last_touched": "2026-03-25",
+      "classification": "server-side",
+      "notes": "Introduced to fix magic-link and confirmation session persistence in /auth/confirm and /auth/callback."
     },
     {
       "path": "components/auth/signup-form.tsx",
@@ -214,7 +222,7 @@
       "criticality": "high",
       "last_touched": "2026-03-25",
       "classification": "docs",
-      "notes": "Records the live auth sender fallback, the signup client-exception root cause, and the final 2026-03-25 deployment state."
+      "notes": "Records the live auth sender fallback, the signup client-exception root cause, and the second 2026-03-25 auth-link deployment state."
     },
     {
       "path": "project-memory/decisions_log.json",

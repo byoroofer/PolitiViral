@@ -35,7 +35,7 @@
         "supabase/functions/auth-send-email/index.ts",
         "project-memory/current_state.json"
       ],
-      "notes": "Route checks and signup smoke testing passed on 2026-03-24 after the temporary sender switch. On 2026-03-25, signup/login/reset runtime hardening was deployed after fixing malformed Vercel public env values. Magic link, reset, invite, email change, and reauthentication still need live verification."
+      "notes": "Route checks and signup smoke testing passed on 2026-03-24 after the temporary sender switch. On 2026-03-25, signup/login/reset runtime hardening and route-handler cookie persistence fixes were deployed. Magic-link request smoke testing returned error: null, but real clicked magic-link, reset, invite, email change, and reauthentication flows still need live verification."
     },
     {
       "task_id": "task-0003",
@@ -137,6 +137,23 @@
         "project-memory/current_state.json"
       ],
       "notes": "The deployed code now trims malformed values and uses direct static NEXT_PUBLIC_* reads, but the Vercel dashboard values should still be corrected to prevent future regressions."
+    },
+    {
+      "task_id": "task-0009",
+      "title": "Verify clicked email-link session persistence",
+      "description": "Confirm that a real clicked magic link or confirmation link lands with an established session after the 2026-03-25 route-handler cookie fix.",
+      "priority": "high",
+      "status": "active",
+      "owner": "shared",
+      "created_at": "2026-03-25T01:32:13.0927952-05:00",
+      "updated_at": "2026-03-25T01:32:13.0927952-05:00",
+      "dependencies": [],
+      "related_files": [
+        "lib/supabase/route-handler.ts",
+        "app/auth/confirm/route.ts",
+        "app/auth/callback/route.ts"
+      ],
+      "notes": "Request-side magic-link smoke testing passed, but a real clicked inbox flow still needs confirmation."
     }
   ]
 }

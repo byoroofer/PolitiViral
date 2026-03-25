@@ -277,6 +277,59 @@
         "lib/supabase/env.ts",
         "project-memory/session_log.json"
       ]
+    },
+    {
+      "id": "know-0017",
+      "category": "auth",
+      "fact": "For PolitiViral's email-link flows, route handlers must use a response-aware Supabase SSR client so auth cookies survive redirect responses after verifyOtp or exchangeCodeForSession.",
+      "confidence": "high",
+      "source": "Auth-link bug diagnosis and route-handler fix on 2026-03-25",
+      "first_recorded_at": "2026-03-25T01:32:13.0927952-05:00",
+      "last_confirmed_at": "2026-03-25T01:32:13.0927952-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "lib/supabase/route-handler.ts",
+        "app/auth/confirm/route.ts",
+        "app/auth/callback/route.ts"
+      ]
+    },
+    {
+      "id": "know-0018",
+      "category": "verification",
+      "fact": "After the 2026-03-25 auth-link fix, a live magic-link request smoke test against the public Supabase client returned error: null.",
+      "confidence": "high",
+      "source": "Direct public-client signInWithOtp smoke test during production repair",
+      "first_recorded_at": "2026-03-25T01:32:13.0927952-05:00",
+      "last_confirmed_at": "2026-03-25T01:32:13.0927952-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "components/auth/magic-link-request-form.tsx",
+        "project-memory/session_log.json"
+      ]
+    },
+    {
+      "id": "know-0019",
+      "category": "deployment",
+      "fact": "The auth-link cookie-persistence fix was deployed on 2026-03-25 to politiviral-3mzasqnvr-byoroofers-projects.vercel.app and aliased to https://politiviral.com.",
+      "confidence": "high",
+      "source": "Direct Vercel deployment output observed during auth-link repair",
+      "first_recorded_at": "2026-03-25T01:32:13.0927952-05:00",
+      "last_confirmed_at": "2026-03-25T01:32:13.0927952-05:00",
+      "status": "active",
+      "related_projects": [
+        "PolitiViral"
+      ],
+      "related_files": [
+        "lib/supabase/route-handler.ts",
+        "app/auth/confirm/route.ts",
+        "app/auth/callback/route.ts"
+      ]
     }
   ]
 }

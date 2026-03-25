@@ -191,5 +191,64 @@
       "Open the live signup and login pages and confirm the browser exception is gone.",
       "Then continue the broader auth verification checklist."
     ]
+  },
+  {
+    "session_id": "sess-2026-03-25-auth-link-cookie-fix",
+    "timestamp_start": "2026-03-25T01:22:39.6311845-05:00",
+    "timestamp_end": "2026-03-25T01:32:13.0927952-05:00",
+    "user_objective": "Fix the remaining login and email-link auth failures on the live site.",
+    "actions_taken": [
+      "Inspected the login page, magic-link request form, auth confirm route, auth callback route, dashboard redirect flow, and current Supabase SSR helpers.",
+      "Identified that the email-link routes were using a Server Component-oriented Supabase client rather than a route-handler-specific client capable of carrying cookies onto redirect responses.",
+      "Added lib/supabase/route-handler.ts to capture auth cookie mutations and apply them to redirect responses.",
+      "Updated /auth/confirm and /auth/callback to use the new route-handler helper.",
+      "Verified npm run typecheck and npm run build both passed.",
+      "Deployed the auth-link cookie fix to Vercel production and confirmed the alias returned to https://politiviral.com.",
+      "Ran a public-client magic-link request smoke test and confirmed Supabase returned error: null."
+    ],
+    "files_created": [
+      "lib/supabase/route-handler.ts"
+    ],
+    "files_modified": [
+      "app/auth/confirm/route.ts",
+      "app/auth/callback/route.ts",
+      "project-memory/project_profile.json",
+      "project-memory/current_state.json",
+      "project-memory/decisions_log.json",
+      "project-memory/session_log.json",
+      "project-memory/tasks.json",
+      "project-memory/file_index.json",
+      "project-memory/knowledge_registry.json"
+    ],
+    "files_reviewed": [
+      "app/(auth)/login/page.tsx",
+      "components/auth/magic-link-request-form.tsx",
+      "app/auth/confirm/route.ts",
+      "app/auth/callback/route.ts",
+      "lib/supabase/server.ts",
+      "app/dashboard/page.tsx",
+      "lib/auth/navigation.ts"
+    ],
+    "key_findings": [
+      "The remaining email-link issue was session persistence on redirect, not the magic-link request call itself.",
+      "The existing Server Component helper was the wrong abstraction for route-handler redirect flows.",
+      "A live magic-link request smoke test returned error: null after the route-handler fix."
+    ],
+    "decisions_added": [
+      "dec-0009"
+    ],
+    "memory_updates": [
+      "Recorded the route-handler cookie-persistence fix and updated the auth-status snapshot to reflect the second 2026-03-25 production deploy."
+    ],
+    "unresolved_items": [
+      "Verify the live password login and clicked magic-link flows with a real inbox/browser session.",
+      "Clean the malformed Vercel public env values in the dashboard.",
+      "Continue the remaining auth email verification checklist and the permanent sender-domain work."
+    ],
+    "next_recommended_actions": [
+      "Open a real magic-link email and verify the redirected session lands inside the app.",
+      "Confirm password login lands correctly as well.",
+      "Then clean the Vercel public env values at the source."
+    ]
   }
 ]
